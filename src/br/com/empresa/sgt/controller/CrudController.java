@@ -1,16 +1,17 @@
 package br.com.empresa.sgt.controller;
 
+import java.util.List;
+
 import br.com.empresa.sgt.business.remote.CrudBusiness;
 import br.com.empresa.sgt.exception.BusinessException;
-import br.com.empresa.sgt.model.arq.Modelo;
 
-public interface CrudController {
+public interface CrudController<T> {
 	
 	public String cadastrarGet();
 	
 	public String cadastrar() throws BusinessException;
 	
-	public String visualizar ();
+	public String visualizar () throws BusinessException;
 	
 	public String alterarGet();
 	
@@ -22,10 +23,16 @@ public interface CrudController {
 	
 	public String inativar() throws BusinessException;
 	
+	public String pesquisarGet();
+	
+	public void pesquisar() throws BusinessException;
+	
 	public CrudBusiness getBusinessClass();
 	
-	public Modelo getModelo();
+	public T getModelo();
 	
-	public Modelo setModelo(Modelo obj);
+	public void setModelo(T obj);
+	
+	public void setResultadoPesquisa(List<T> resultado);
 
 }

@@ -34,8 +34,8 @@
 	        </p:submenu>
 	        
 	        <p:submenu label="Grupo de Permissões" icon="ui-icon-key">
-	            <p:menuitem value="Cadastrar Novo" outcome="/resources/view/controleAcesso/grupoPermissoes/incluirGrupoPermissoes.html" icon="ui-icon-plus" />
-	            <p:menuitem value="Pesquisar" outcome="/resources/view/controleAcesso/grupoPermissoes/pesquisarGrupoPermissoes.html" icon="ui-icon-search" />
+	            <p:menuitem value="Cadastrar Novo" action="#{grupoPermissaoController.cadastrarGet}" icon="ui-icon-plus" />
+	            <p:menuitem value="Pesquisar" action="#{grupoPermissaoController.pesquisarGet}" icon="ui-icon-search" />
 	        </p:submenu>
         </p:submenu>
         

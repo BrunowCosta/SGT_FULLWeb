@@ -10,17 +10,15 @@ import javax.inject.Named;
 
 import br.com.empresa.sgt.business.remote.CrudBusiness;
 import br.com.empresa.sgt.business.remote.GrupoPermissaoBusinessRemote;
-import br.com.empresa.sgt.controller.arq.AbstractController;
-import br.com.empresa.sgt.controller.arq.AbstractCrudController;
+import br.com.empresa.sgt.controller.arq.AbstractCrudAdapterController;
 import br.com.empresa.sgt.enumeration.GrupoPermissaoStatus;
 import br.com.empresa.sgt.enumeration.PermissaoValor;
-import br.com.empresa.sgt.exception.BusinessException;
 import br.com.empresa.sgt.model.acesso.GrupoPermissao;
 import br.com.empresa.sgt.model.arq.Modelo;
 
 @Named
 @ViewScoped
-public class GrupoPermissaoController extends AbstractCrudController<GrupoPermissao> {
+public class GrupoPermissaoController extends AbstractCrudAdapterController<GrupoPermissao> {
 	
 	/**
 	 * 
@@ -31,7 +29,6 @@ public class GrupoPermissaoController extends AbstractCrudController<GrupoPermis
 	
 	@EJB private GrupoPermissaoBusinessRemote grupoPermissaoBusiness;
 	
-	// Campos da tela
 	// TODO ver como produzir isso de vera
 	@Inject private GrupoPermissao grupoPermissao;
 	
@@ -42,17 +39,25 @@ public class GrupoPermissaoController extends AbstractCrudController<GrupoPermis
 	private final List<GrupoPermissaoStatus> grupoPermissaoStatus = Arrays.asList(GrupoPermissaoStatus.values());
 	private final List<PermissaoValor> permissaoValores = Arrays.asList(PermissaoValor.values());
 	
-	public GrupoPermissaoController() {}
+	public GrupoPermissaoController() {
+		cadastrarUrl = "/resources/view/controleAcesso/grupoPermissoes/incluirGrupoPermissoes.html";
+		pesquisarUrl = "/resources/view/controleAcesso/grupoPermissoes/pesquisarGrupoPermissoes.html";
+	}
 	
-//	public String cadastrar() throws BusinessException {
-//		grupoPermissaoBusiness.cadastrar(this.getGrupoPermissao(), this.getUsuarioLogado());
-//		return null;
-//	}
-//	
-//	public String pesquisar() throws BusinessException {
-//		this.resultadoPesquisa = grupoPermissaoBusiness.pesquisar(this.getGrupoPermissao(), this.getUsuarioLogado());
-//		return null;
-//	}
+	@Override
+	public CrudBusiness getBusinessClass() {
+		return this.grupoPermissaoBusiness;
+	}
+
+	@Override
+	public GrupoPermissao getModelo() {
+		return this.grupoPermissao;
+	}
+
+	@Override
+	public void setModelo(GrupoPermissao obj) {
+		this.grupoPermissao = obj;
+	}
 	
 	public GrupoPermissao getGrupoPermissao() {
 		return grupoPermissao;
@@ -74,8 +79,10 @@ public class GrupoPermissaoController extends AbstractCrudController<GrupoPermis
 		return resultadoPesquisa;
 	}
 
-	public void setResultadoPesquisa(List<GrupoPermissao> resultadoPesquisa) {
-		this.resultadoPesquisa = resultadoPesquisa;
+	@Override
+	public void setResultadoPesquisa(List<GrupoPermissao> resultado) {
+		this.resultadoPesquisa = resultado;
+		
 	}
 
 	public GrupoPermissao getGrupoPermStatusEnum() {
@@ -86,22 +93,5 @@ public class GrupoPermissaoController extends AbstractCrudController<GrupoPermis
 		this.grupoPermStatusEnum = grupoPermStatusEnum;
 	}
 
-	@Override
-	public CrudBusiness getBusinessClass() {
-		return this.getBusinessClass();
-	}
-
-	@Override
-	public Modelo getModelo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Modelo setModelo(Modelo obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }
 

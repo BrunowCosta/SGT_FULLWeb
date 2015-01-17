@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.owasp.esapi.errors.EncryptionException;
 
-import br.com.empresa.sgt.business.remote.AcessoBusinessRemote;
-import br.com.empresa.sgt.business.remote.CrudBusiness;
+import br.com.empresa.sgt.business.remote.UsuarioBusinessRemote;
 import br.com.empresa.sgt.controller.arq.AbstractController;
 import br.com.empresa.sgt.exception.BusinessException;
 import br.com.empresa.sgt.model.acesso.RegistroAcesso;
@@ -26,7 +25,7 @@ public class AcessoController extends AbstractController {
 
 	public static final String USUARIO_LOGADO = "usuarioLogado";
 	
-	@EJB private AcessoBusinessRemote acessoBusiness;
+	@EJB private UsuarioBusinessRemote usuarioBusiness;
 	
 	// Campos da tela
 	private String login = "";

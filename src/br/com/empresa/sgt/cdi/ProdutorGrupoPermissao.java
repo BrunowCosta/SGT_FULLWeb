@@ -20,6 +20,7 @@ public class ProdutorGrupoPermissao implements Serializable{
 	@Produces
 	public GrupoPermissao produzirGrupoPermissao() {
 		GrupoPermissao grupo = new GrupoPermissao();
+		grupo.setId(0);
 		List<Permissao> permissoes = new ArrayList<Permissao>();
 		for(TipoPermissao tipo : TipoPermissao.values()) {
 			Permissao permissao = new Permissao();
