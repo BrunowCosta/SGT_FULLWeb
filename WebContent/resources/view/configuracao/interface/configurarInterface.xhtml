@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/resources/view/template/templatePrincipal.xhtml">
+
+<ui:define name="breadCrumb">
+	<p:menuitem value="Início" url="/resources/view/index.html" />
+	<p:menuitem value="Configurar Interface" url="#" />
+</ui:define>
+
+<ui:define name="conteudo">
+	<div id="configurarInterface">
+		<h:form>
+			<p:panel header="Configurar Interface - Customize a interface do sistema a seu gosto.">
+				<p:messages/>
+				<p:tooltip />
+			    <h:panelGrid columns="4" cellpadding="3" columnClasses="label, value" style="width:100%;">
+		        	<p:outputLabel for="nomeAplicacao" value="Nome da Aplicação: " />
+		           	<p:inputText id="nomeAplicacao" value="#{configuracaoInterfaceController.nomeAplicacao}" required="true" />
+		                  
+		            <p:outputLabel for="tema" value="Tema: " />
+	                <p:themeSwitcher id="tema" style="width:165px">
+			            <f:selectItem itemLabel="Escolha o tema" itemValue="" />
+			            <f:selectItems value="#{configuracaoInterfaceController.temas}"/>
+			        </p:themeSwitcher>
+			        
+			       	<p:outputLabel for="corPlanoFundo" value="Cor do Plano de fundo: " />
+			        <p:colorPicker id="corPlanoFundo" value="#{configuracaoInterfaceController.corBackground}" />                   
+			       	
+			   		<p:outputLabel for="corConteudo " value="Cor do Conteudo: " />
+			   		<p:colorPicker id="corConteudo" value="#{configuracaoInterfaceController.corConteudo}" />  
+			   		
+		           	<p:outputLabel for="tamanhoFonte" value="Tamanho da Fonte: " />
+		            <h:panelGrid columns="1" style="margin-bottom: 10px">
+				        <h:outputText id="tamanhoFonteLabel" value="#{configuracaoInterfaceController.tamanhoFonte}" />
+				        <h:inputHidden id="tamanhoFonte" value="#{configuracaoInterfaceController.tamanhoFonte}" />
+				        <p:slider for="tamanhoFonte" display="tamanhoFonteLabel" 
+				        		  style="width: 200px" displayTemplate="{value}" />
+				    </h:panelGrid>
+				   
+				    <p:outputLabel for="arredComponentLabel" value="Arredondamento dos Componentes: " />
+		             <h:panelGrid columns="1" style="margin-bottom: 10px">
+				        <h:outputText id="arredComponentLabel" value="#{configuracaoInterfaceController.arredondamentoComponentes}" />
+				        <h:inputHidden id="valorArredondamento" value="#{configuracaoInterfaceController.arredondamentoComponentes}" />
+				        <p:slider for="valorArredondamento" display="arredComponentLabel" 
+				        		  style="width: 200px" displayTemplate="%{value}" />
+				    </h:panelGrid>
+				    
+				    <p:outputLabel for="habDesabSombra" value="Habilita/Desabilita Sombras: " />
+			        <p:inputSwitch id="habDesabSombra" value="#{configuracaoInterfaceController.habDesabSombra}" />
+
+			        <p:commandButton value="Cadastrar" icon="ui-icon-check"/>
+				</h:panelGrid>
+			</p:panel>
+	    </h:form>
+	</div>
+</ui:define>
+</ui:composition>
+
+</html>

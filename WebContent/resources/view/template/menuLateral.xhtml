@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+<h:form>
+    <p:panelMenu style="width:160px">
+    
+    	<p:submenu label="Controle Tributario - IPTU">
+    		<p:submenu label="Gerenciar Imóveis" icon="ui-icon-home">
+	            <p:menuitem value="Cadastrar Novo" url="http://www.primefaces.org" icon="ui-icon-plus" />
+	            <p:menuitem value="Pesquisar" url="http://www.primefaces.org/documentation" icon="ui-icon-search" />
+            </p:submenu>
+        </p:submenu>
+        
+        <p:submenu label="Controle Tributario - ITBI">
+            <p:menuitem value="Delete" actionListener="#{menuView.delete}" icon="ui-icon-close" />
+        </p:submenu>
+
+       	<p:submenu label="Controle Tributario - ISS">
+            <p:menuitem value="Delete" actionListener="#{menuView.delete}" icon="ui-icon-close" />
+        </p:submenu>
+        
+        <p:separator />
+
+        <p:submenu label="Controle de Acesso" >
+        	<p:submenu label="Gerenciar Usuários" icon="ui-icon-person">
+	            <p:menuitem value="Cadastrar Novo" outcome="/resources/view/controleAcesso/usuario/incluirUsuario.html" icon="ui-icon-plus" />
+	            <p:menuitem value="Pesquisar" outcome="/resources/view/index.hml" icon="ui-icon-search" />
+	        </p:submenu>
+	        
+	        <p:submenu label="Grupo de Permissões" icon="ui-icon-key">
+	            <p:menuitem value="Cadastrar Novo" outcome="/resources/view/controleAcesso/grupoPermissoes/incluirGrupoPermissoes.html" icon="ui-icon-plus" />
+	            <p:menuitem value="Pesquisar" outcome="/resources/view/controleAcesso/grupoPermissoes/pesquisarGrupoPermissoes.html" icon="ui-icon-search" />
+	        </p:submenu>
+        </p:submenu>
+        
+         <p:submenu label="Configurações" >
+            <p:menuitem value="Sistema" outcome="/resources/view/index.html" icon="ui-icon-gear" />
+            <p:menuitem value="Interface" outcome="/resources/view/configuracao/interface/configurarInterface.html" icon="ui-icon-gear" />
+        </p:submenu>
+    </p:panelMenu>
+</h:form>
+</ui:composition>
+</html>

@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+Class-Path: SGT_FULLEJB.jar esapi-2.1.0.jar

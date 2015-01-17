@@ -1,0 +1,114 @@
+@CHARSET "ISO-8859-1";
+
+html, body {
+	height:100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+html {
+	background-color: #f1f1f1;
+}
+
+.container {
+	min-height:100%;
+	margin: 0px;
+	padding: 0px;
+	
+	background-color: white;
+	max-width: 940px;
+	margin:auto;
+	padding: 0px 10px 0px 10px;
+	
+	box-shadow: 0px 0px 1em #666;
+	-webkit-box-shadow: 0px 0px 1em #666;
+	-moz-box-shadow: 0px 0px 1em #666;
+}
+
+.topo {
+	min-height: 130px;
+	padding: 20px 10px 10px 10px;
+}
+
+.topo .perfil {
+	float:right;
+	text-align: center;
+	text-decoration: none;
+}
+
+.topo .perfil a {
+	text-decoration: none;
+}
+
+.envelope {
+	min-height: 330px;
+	min-width: 920px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+}
+
+.envelope .conteudo {
+	min-height: 100%;
+	width: 82%;
+	float:right;
+	margin:auto;
+}
+
+.envelope .menuLateral {
+	min-height: 100%;
+	float: left;
+}
+
+footer {
+	clear:both;
+	height: 50px;
+	text-align: center;
+	border-top: 1px solid #ddd;
+    line-height: 3em;
+}
+
+#login {
+	padding-top: 75px;
+	width: 235px;
+	max-height:150px;
+	margin: auto;
+}
+
+#login small {
+	font-size: 65%;
+}
+
+#login a, a:visited {
+	color: #4f4f4f;
+}
+
+#login a:hover {
+	color: #9e9e9e;
+}
+
+.notaRodape {
+	font-weight: bold;
+	font-size: x-small !important;
+}
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+
+.labelPermissao{
+	width: 120px;
+}
+
+.ui-datatable-data .rowGreen {
+	background-color: green;
+}
+
+.ui-datatable-data .rowRed {
+	background-color: red;
+}
+
