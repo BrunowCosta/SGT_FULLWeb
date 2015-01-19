@@ -3,7 +3,6 @@ package br.com.empresa.sgt.controller;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Named;
 
-import br.com.empresa.sgt.business.remote.CrudBusiness;
 import br.com.empresa.sgt.controller.arq.AbstractController;
 
 @Named
@@ -34,8 +33,8 @@ public class ConfiguracaoInterfaceController extends AbstractController {
 	public String nomeAplicacao = "";
 	public String corBackground = "";
 	public String corConteudo = "";
-	public Integer tamanhoFonte;
-	public Integer arredondamentoComponentes;
+	public Integer tamanhoFonte = 0;
+	public Integer arredondamentoComponentes = 0;
 	public Boolean habDesabSombra;
 	
 	public ConfiguracaoInterfaceController() {}

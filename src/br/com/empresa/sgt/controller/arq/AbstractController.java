@@ -2,6 +2,7 @@ package br.com.empresa.sgt.controller.arq;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ public abstract class AbstractController implements Serializable  {
 		facesMasseUtils.addInterfaceMessage(e);
 	}
 	
-	protected void addInterfaceMessage(String mensagem, String prefixo, String severity) {
+	protected void addInterfaceMessage(String mensagem, String prefixo, Severity severity) {
 		facesMasseUtils.addInterfaceMessage(mensagem, prefixo, severity);
 	}
 

@@ -4,14 +4,15 @@ import java.util.List;
 
 import br.com.empresa.sgt.business.remote.CrudBusiness;
 import br.com.empresa.sgt.exception.BusinessException;
+import br.com.empresa.sgt.model.arq.Modelo;
 
-public interface CrudController<T> {
+public interface CrudController<T extends Modelo> {
 	
 	public String cadastrarGet();
 	
 	public String cadastrar() throws BusinessException;
 	
-	public String visualizar () throws BusinessException;
+	public String visualizar (Integer id) throws BusinessException;
 	
 	public String alterarGet();
 	
@@ -27,7 +28,7 @@ public interface CrudController<T> {
 	
 	public void pesquisar() throws BusinessException;
 	
-	public CrudBusiness getBusinessClass();
+	public CrudBusiness<T> getBusinessClass();
 	
 	public T getModelo();
 	

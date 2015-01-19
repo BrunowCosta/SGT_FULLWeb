@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.enterprise.inject.Produces;
 
-import br.com.empresa.sgt.enumeration.TipoPermissao;
 import br.com.empresa.sgt.model.acesso.GrupoPermissao;
 import br.com.empresa.sgt.model.acesso.Permissao;
+import br.com.empresa.sgt.model.acesso.Permissao.PermissaoTipoEnum;
 
 public class ProdutorGrupoPermissao implements Serializable{
 
@@ -20,12 +20,10 @@ public class ProdutorGrupoPermissao implements Serializable{
 	@Produces
 	public GrupoPermissao produzirGrupoPermissao() {
 		GrupoPermissao grupo = new GrupoPermissao();
-		grupo.setId(0);
 		List<Permissao> permissoes = new ArrayList<Permissao>();
-		for(TipoPermissao tipo : TipoPermissao.values()) {
+		for(PermissaoTipoEnum tipo : PermissaoTipoEnum.values()) {
 			Permissao permissao = new Permissao();
-			permissao.setTipo(tipo.getCodigo());
-			permissao.setTipoPermissao(tipo);
+			permissao.setTipo(tipo);
 			permissoes.add(permissao);
 		}
 		grupo.setPermissoes(permissoes);

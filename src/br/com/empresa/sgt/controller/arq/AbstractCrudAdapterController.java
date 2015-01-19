@@ -6,7 +6,7 @@ import br.com.empresa.sgt.model.arq.Modelo;
 
 
 @SuppressWarnings("serial")
-public abstract class AbstractCrudAdapterController<T> extends AbstractController implements CrudController<T> {
+public abstract class AbstractCrudAdapterController<T extends Modelo> extends AbstractController implements CrudController<T> {
 	
 	protected static String cadastrarUrl;
 	protected static String visualizarUrl;
@@ -18,17 +18,15 @@ public abstract class AbstractCrudAdapterController<T> extends AbstractControlle
 		return cadastrarUrl;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String cadastrar() throws BusinessException {
 		this.getBusinessClass().cadastrar(this.getModelo(), this.getUsuarioLogado());
-		return this.visualizar();
+		return this.visualizar(this.getModelo().getId());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public String visualizar () throws BusinessException {
-		this.setModelo(((T) this.getBusinessClass().visualizar(((Modelo) this.getModelo()).getId())));
+	public String visualizar (Integer id) throws BusinessException {
+		this.setModelo(((T) this.getBusinessClass().visualizar(id)));
 		return visualizarUrl;
 	}
 	
@@ -37,32 +35,28 @@ public abstract class AbstractCrudAdapterController<T> extends AbstractControlle
 		return alterarUrl;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String alterar() throws BusinessException {
 		this.getBusinessClass().alterar(this.getModelo(), this.getUsuarioLogado());
-		return visualizar();
+		return visualizar(this.getModelo().getId());
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String remover() throws BusinessException {
 		this.getBusinessClass().remover(this.getModelo(), this.getUsuarioLogado());
 		return pesquisarUrl;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String ativar() throws BusinessException {
 		this.getBusinessClass().ativar(this.getModelo(), this.getUsuarioLogado());
-		return visualizar();
+		return visualizar(this.getModelo().getId());
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String inativar() throws BusinessException {
 		this.getBusinessClass().inativar(this.getModelo(), this.getUsuarioLogado());
-		return visualizar();
+		return visualizar(this.getModelo().getId());
 	}
 	
 	@Override
@@ -70,7 +64,6 @@ public abstract class AbstractCrudAdapterController<T> extends AbstractControlle
 		return pesquisarUrl;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void pesquisar() throws BusinessException {
 		this.setResultadoPesquisa(this.getBusinessClass().pesquisar(this.getModelo(), this.getUsuarioLogado()));

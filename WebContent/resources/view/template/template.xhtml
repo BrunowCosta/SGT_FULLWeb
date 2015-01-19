@@ -19,6 +19,9 @@
 	
 	<link jsf:library="css" jsf:name="/primefacesAjustes.css" />
 	<link jsf:library="css" jsf:name="/main.css" />
+	
+	<ui:insert name="customJs">
+	</ui:insert>
 <!-- 	<link jsf:library="font-awesome-4.2.0" jsf:name="/css/font-awesome.css" /> -->
 </head>
 
@@ -27,7 +30,7 @@
 <f:view>
 
 	<ui:debug/>
-	<div class="container">
+	<div id="container">
 		<header>
 			<ui:include src="/resources/view/template/topo.xhtml" />
 		</header>

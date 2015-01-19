@@ -11,10 +11,9 @@ import javax.inject.Named;
 import br.com.empresa.sgt.business.remote.CrudBusiness;
 import br.com.empresa.sgt.business.remote.GrupoPermissaoBusinessRemote;
 import br.com.empresa.sgt.controller.arq.AbstractCrudAdapterController;
-import br.com.empresa.sgt.enumeration.GrupoPermissaoStatus;
-import br.com.empresa.sgt.enumeration.PermissaoValor;
 import br.com.empresa.sgt.model.acesso.GrupoPermissao;
-import br.com.empresa.sgt.model.arq.Modelo;
+import br.com.empresa.sgt.model.acesso.GrupoPermissao.GrupoPermissaoStatusEnum;
+import br.com.empresa.sgt.model.acesso.Permissao.PermissaoValorEnum;
 
 @Named
 @ViewScoped
@@ -25,8 +24,6 @@ public class GrupoPermissaoController extends AbstractCrudAdapterController<Grup
 	 */
 	private static final long serialVersionUID = -8481910644134112660L;
 
-	public static final String USUARIO_LOGADO = "usuarioLogado";
-	
 	@EJB private GrupoPermissaoBusinessRemote grupoPermissaoBusiness;
 	
 	// TODO ver como produzir isso de vera
@@ -34,16 +31,16 @@ public class GrupoPermissaoController extends AbstractCrudAdapterController<Grup
 	
 	private List<GrupoPermissao> resultadoPesquisa;
 	
-	private GrupoPermissao grupoPermStatusEnum;
-	
-	private final List<GrupoPermissaoStatus> grupoPermissaoStatus = Arrays.asList(GrupoPermissaoStatus.values());
-	private final List<PermissaoValor> permissaoValores = Arrays.asList(PermissaoValor.values());
+	private final List<GrupoPermissaoStatusEnum> grupoPermissaoStatus = Arrays.asList(GrupoPermissaoStatusEnum.values());
+	private final List<PermissaoValorEnum> permissaoValores = Arrays.asList(PermissaoValorEnum.values());
 	
 	public GrupoPermissaoController() {
-		cadastrarUrl = "/resources/view/controleAcesso/grupoPermissoes/incluirGrupoPermissoes.html";
-		pesquisarUrl = "/resources/view/controleAcesso/grupoPermissoes/pesquisarGrupoPermissoes.html";
+		cadastrarUrl = "/resources/view/controleAcesso/grupoPermissoes/grupoPermissaoIncluir.html";
+		pesquisarUrl = "/resources/view/controleAcesso/grupoPermissoes/grupoPermissaoPesquisar.html";
 	}
 	
+	// TODO Tipar isso aqui
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public CrudBusiness getBusinessClass() {
 		return this.grupoPermissaoBusiness;
@@ -67,11 +64,11 @@ public class GrupoPermissaoController extends AbstractCrudAdapterController<Grup
 		this.grupoPermissao = grupoPermissao;
 	}
 
-	public List<GrupoPermissaoStatus> getGrupoPermissaoStatus() {
+	public List<GrupoPermissaoStatusEnum> getGrupoPermissaoStatus() {
 		return grupoPermissaoStatus;
 	}
 
-	public List<PermissaoValor> getPermissaoValores() {
+	public List<PermissaoValorEnum> getPermissaoValores() {
 		return permissaoValores;
 	}
 
@@ -82,15 +79,6 @@ public class GrupoPermissaoController extends AbstractCrudAdapterController<Grup
 	@Override
 	public void setResultadoPesquisa(List<GrupoPermissao> resultado) {
 		this.resultadoPesquisa = resultado;
-		
-	}
-
-	public GrupoPermissao getGrupoPermStatusEnum() {
-		return grupoPermStatusEnum;
-	}
-
-	public void setGrupoPermStatusEnum(GrupoPermissao grupoPermStatusEnum) {
-		this.grupoPermStatusEnum = grupoPermStatusEnum;
 	}
 
 }

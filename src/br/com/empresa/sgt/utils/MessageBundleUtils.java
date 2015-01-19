@@ -41,7 +41,7 @@ public class MessageBundleUtils implements Serializable {
 		try {
 			mensagemTraduzida = this.getResourceBundle(locale).getString(key);
 		} catch(Exception e) {
-			mensagemTraduzida = key;
+			mensagemTraduzida = "???" + key + "???";
 		}
 		return mensagemTraduzida; 
 	}

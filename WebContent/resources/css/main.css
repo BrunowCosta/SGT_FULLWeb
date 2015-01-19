@@ -10,7 +10,7 @@ html {
 	background-color: #f1f1f1;
 }
 
-.container {
+#container {
 	min-height:100%;
 	margin: 0px;
 	padding: 0px;
@@ -110,5 +110,15 @@ footer {
 
 .ui-datatable-data .rowRed {
 	background-color: red;
+}
+
+.acaoColumn {
+	min-width: 5%;
+	text-align: center;
+}
+
+.codigoColumn {
+	width: 4.5%; 
+	text-align: center;
 }
 

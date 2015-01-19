@@ -6,7 +6,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
+import br.com.empresa.sgt.enumeration.ErroNegocioEnum;
 import br.com.empresa.sgt.exception.BusinessException;
+import br.com.empresa.sgt.exception.BusinessException.ErroNegocioPrefixoEnum;
+import br.com.empresa.sgt.exception.BusinessException.ErroNegocioServidadeEnum;
 
 public class FacesMessageUtils implements Serializable {
 
@@ -29,41 +32,36 @@ public class FacesMessageUtils implements Serializable {
 	
 	// Metódos utilizados para exibir um mensagem amigavel na interface.
 	public void addInterfaceMessage(BusinessException e) {
-		
 		String mensagem = messageBundleUtils.traduzirMensagemMultipla(e.getMessage());
-		String prefixo = "";
-		if(e.getPrefixo() != null || e.getPrefixo() != "") {
-			prefixo = messageBundleUtils.getMensagem(e.getPrefixo());
-		}
-		facesContext.addMessage(null, new FacesMessage(this.getServerity(e.getSeverity()), prefixo , mensagem));
+		String prefixo = messageBundleUtils.getMensagem(e.getPrefixo().getDescricao());
+		facesContext.addMessage(null, new FacesMessage(this.getServerity(e.getSeveridade()), prefixo , mensagem));
 	}
 	
-	public void addInterfaceMessage(String mensagem, String prefixo, String severity) {
+	public void addInterfaceMessage(String mensagem, String prefixo, Severity severity) {
 		mensagem = messageBundleUtils.getMensagem(mensagem);
 		prefixo = messageBundleUtils.getMensagem(prefixo);
-		facesContext.addMessage(null, new FacesMessage(this.getServerity(severity), prefixo, mensagem));
+		facesContext.addMessage(null, new FacesMessage(severity, prefixo, mensagem));
 	}
 	
 	public void addGenericErroMessage() {
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-									messageBundleUtils.getMensagem("sistema.erroPrefixo.generico"), 
-									messageBundleUtils.getMensagem("sistema.erro.generico")));
+													   messageBundleUtils.getMensagem(ErroNegocioPrefixoEnum.GENERICO.getDescricao()), 
+													   messageBundleUtils.getMensagem(ErroNegocioEnum.ERRO_GENERICO.getDescricao())));
 	}
 	
-	private Severity getServerity(String codigo) {
-		
-		if(codigo == null) {
+	private Severity getServerity(ErroNegocioServidadeEnum severidade) {
+		if(severidade == null) {
 			return FacesMessage.SEVERITY_ERROR;
 		}
 		
-		switch (codigo) {
-		case BusinessException.SEVERITY_ERROR:
+		switch (severidade) {
+		case ERRO:
 			return FacesMessage.SEVERITY_ERROR;
-		case BusinessException.SEVERITY_FATAL:
+		case FATAL:
 			return FacesMessage.SEVERITY_FATAL;
-		case BusinessException.SEVERITY_INFO:
+		case INFO:
 			return FacesMessage.SEVERITY_INFO;
-		case BusinessException.SEVERITY_WARNNING:
+		case AVISO:
 			return FacesMessage.SEVERITY_WARN;
 		default:
 			return FacesMessage.SEVERITY_ERROR;
