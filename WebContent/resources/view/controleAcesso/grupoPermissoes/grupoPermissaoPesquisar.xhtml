@@ -22,10 +22,10 @@
 	                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
 	                	<p:outputLabel for="descricaoGrupoFiltro" value="Descrição: " />
 	                    <p:inputText id="descricaoGrupoFiltro" size="40" 
-	                    			 value="#{grupoPermissaoController.grupoPermissao.descricao}" label="Descrição Filtro"/>
+	                    			 value="#{grupoPermissaoController.objetoModelo.descricao}" label="Descrição Filtro"/>
 	                    
 	                    <p:outputLabel for="statusFiltro" value="Status: " />
-	                    <p:selectOneMenu id="statusFiltro" value="#{grupoPermissaoController.grupoPermissao.status}" 
+	                    <p:selectOneMenu id="statusFiltro" value="#{grupoPermissaoController.objetoModelo.status}" 
 	                     		         style="width:125px" label="Status Filtro">
 	                     		
 				            <f:selectItems value="#{grupoPermissaoController.grupoPermissaoStatus}" 
