@@ -38,7 +38,7 @@ public class FacesMessageUtils implements Serializable {
 	}
 	
 	public void addInterfaceMessage(String mensagem, String prefixo, Severity severity) {
-		mensagem = messageBundleUtils.getMensagem(mensagem);
+		mensagem = messageBundleUtils.traduzirMensagemMultipla(mensagem);
 		prefixo = messageBundleUtils.getMensagem(prefixo);
 		facesContext.addMessage(null, new FacesMessage(severity, prefixo, mensagem));
 	}

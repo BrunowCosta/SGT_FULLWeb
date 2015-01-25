@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:p="http://primefaces.org/ui"
+	  manifest="SGT.appcache">
+	  
+<head jsf:id="head">
+	<title>SGT</title>
+
+	<meta charset="UTF-8" />
+	<meta name="author" content="Empresa" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	
+	<link rel="shortcut icon" href="#{request.contextPath}/resources/image/layout/sistema.png" type="image/x-icon" />
+	
+	<link jsf:library="css" jsf:name="primefacesAjustes.css" />
+	<link jsf:library="css" jsf:name="main.css" />
+	
+	<ui:insert name="customJs">
+	</ui:insert>
+<!-- 	<link jsf:library="font-awesome-4.2.0" jsf:name="/css/font-awesome.css" /> -->
+</head>
+
+<body jsf:id="body">
+<!-- <f:view locale="#{internacionalizacaoController.locale}"> -->
+	<f:view>
+	
+		<ui:debug/>
+		<div id="container">
+			<header>
+				<ui:include src="topo.xhtml" />
+			</header>
+			
+			<div id="breadCrumb">
+				<p:breadCrumb>
+					<ui:insert name="breadCrumb">
+				    	<p:menuitem value="Início" url="#" />
+				    </ui:insert>
+				</p:breadCrumb>
+			</div>
+			
+			<div id="envelope">
+				<ui:insert name="envelope"/>
+			</div>
+			
+			<footer>
+				<div id="rodape">
+					<ui:include src="footer.xhtml" />
+				</div>
+			</footer>
+		</div>
+		
+	</f:view>
+</body>
+</html>

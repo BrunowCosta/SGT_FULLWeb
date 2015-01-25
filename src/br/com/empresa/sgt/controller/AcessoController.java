@@ -1,7 +1,7 @@
 package br.com.empresa.sgt.controller;
 
 import javax.ejb.EJB;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -9,15 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.owasp.esapi.errors.EncryptionException;
 
 import br.com.empresa.sgt.business.remote.UsuarioBusinessRemote;
-import br.com.empresa.sgt.controller.arq.AbstractController;
+import br.com.empresa.sgt.controller.arq.AbstractMB;
 import br.com.empresa.sgt.exception.BusinessException;
 import br.com.empresa.sgt.model.acesso.RegistroAcesso;
-import br.com.empresa.sgt.model.acesso.Usuario;
 import eu.bitwalker.useragentutils.UserAgent;
 
 @Named
 @RequestScoped
-public class AcessoController extends AbstractController {
+public class AcessoController extends AbstractMB {
 	
 	/**
 	 * 
@@ -41,7 +40,7 @@ public class AcessoController extends AbstractController {
 		// TODO Ver por que as vezes da pau no firefox
 		// TODO Ver um maneira legal de botar o caminho das telas.
 		// Provavelmente vai ser utilizado no prettyface.
-		return "/resources/view/controleAcesso/usuario/usuarioIncluir.html";
+		return "/view/controleAcesso/usuario/usuarioIncluir.html";
 	}
 	
 	private RegistroAcesso criarRegistroAcesso(HttpServletRequest req){

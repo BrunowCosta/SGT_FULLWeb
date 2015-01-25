@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+<ui:define name="envelope">
+
+	<div class="menuLateral">
+		<ui:insert name="menuLateral">
+			<ui:include src="menuLateral.xhtml" />
+		</ui:insert>
+	</div>
+	
+	<div class="conteudo">
+		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
+		<p:tooltip />
+		<ui:insert name="conteudo"/>
+	</div>
+	
+</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/templatePrincipal.xhtml">
+
+<ui:define name="breadCrumb">
+	<p:menuitem value="#{msg['view.inicio']}" url="/view/index.html" />
+	<p:menuitem value="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}" url="#" />
+</ui:define>
+
+<ui:define name="conteudo">
+	<div id="pesquisarGrupoPermissao">
+		<h:form>
+			<p:panel header="#{msg['view.acao.pesquisar']} #{msg['GrupoPermissao']}">
+            	<h:panelGrid columns="1">
+	                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
+	                	<p:outputLabel for="descricaoGrupoFiltro" value="Descrição: " />
+	                    <p:inputText id="descricaoGrupoFiltro" size="40" 
+	                    			 value="#{grupoPermissaoPesquisarMB.objetoPesquisa.descricao}" label="Descrição Filtro"/>
+	                    
+	                    <p:outputLabel for="statusFiltro" value="Status: " />
+	                    <p:selectOneMenu id="statusFiltro" value="#{grupoPermissaoPesquisarMB.objetoPesquisa.status}" 
+	                     		         style="width:125px" label="Status Filtro">
+	                     		
+				            <f:selectItems value="#{grupoPermissaoPesquisarMB.grupoPermissaoStatus}" 
+				            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
+				        </p:selectOneMenu>
+	                </h:panelGrid>
+	                
+	                <p:commandButton value="#{msg['view.acao.pesquisar']}" actionListener="#{grupoPermissaoPesquisarMB.pesquisar}" update="resultadoPesquisa" icon="ui-icon-check" />
+	      		</h:panelGrid>
+	      		
+            	<p:separator/>
+            	
+	            <p:dataTable id="resultadoPesquisa" var="grupo" value="#{grupoPermissaoPesquisarMB.resultadoPesquisa}" 
+	            			 rowStyleClass="#{grupo.status}" emptyMessage="#{msg['view.pesquisar.semResultado']}">
+				 	<h:inputHidden value="#{grupo.id}" />
+				    <p:column headerText="Descricao" style="width: 79%">
+				        <h:outputText value="#{grupo.descricao}" />
+				    </p:column>
+				    
+				    <p:column headerText="Status" style="width: 9%">
+				        <h:outputText value="#{msg[grupo.status.descricao]}" />
+				    </p:column>
+				 
+				    <p:column headerText="Ações" styleClass="acaoColumn">
+				    	<p:column>
+				    		<p:commandButton action="#{grupoPermissaoMB.visualizar(grupo)}" icon="ui-icon-search" title="#{msg['view.acao.visualizar']}"/>
+				    	</p:column>
+				    	
+				    	<p:column>
+				    		<p:commandButton action="#{grupoPermissaoMB.goAlterar(grupo)}" icon="ui-icon-pencil" title="#{msg['view.acao.alterar']}"/>
+				    	</p:column>
+				    </p:column>
+				</p:dataTable>
+            </p:panel>
+	    </h:form>
+	</div>
+</ui:define>
+</ui:composition>
+
+</html>

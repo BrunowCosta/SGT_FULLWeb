@@ -3,11 +3,11 @@ package br.com.empresa.sgt.controller;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Named;
 
-import br.com.empresa.sgt.controller.arq.AbstractController;
+import br.com.empresa.sgt.controller.arq.AbstractMB;
 
 @Named
 @ApplicationScoped
-public class ConfiguracaoInterfaceController extends AbstractController {
+public class ConfiguracaoInterfaceController extends AbstractMB {
 
 	/**
 	 * 
