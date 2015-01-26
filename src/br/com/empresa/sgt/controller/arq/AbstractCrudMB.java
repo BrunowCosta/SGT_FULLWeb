@@ -41,8 +41,8 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 	
 	@Override
 	public String cadastrar() throws BusinessException {
-		this.getBusinessClass().cadastrar(objetoModelo, super.getUsuarioLogado());
-		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.cadastro" , null, FacesMessage.SEVERITY_INFO);
+//		this.getBusinessClass().cadastrar(objetoModelo, super.getUsuarioLogado());
+		super.addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.cadastro" , "msg.prefixo", FacesMessage.SEVERITY_INFO);
 		return this.visualizar(objetoModelo);
 	}
 
@@ -63,14 +63,14 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 	@Override
 	public String alterar() throws BusinessException {
 		this.getBusinessClass().alterar(objetoModelo, super.getUsuarioLogado());
-		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.alteracao" , null, FacesMessage.SEVERITY_INFO);
+		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.alteracao" , "msg.prefixo", FacesMessage.SEVERITY_INFO);
 		return visualizar(objetoModelo);
 	}
 	
 	@Override
 	public void remover() throws BusinessException {
 		this.getBusinessClass().remover(objetoModelo.getId(), this.getUsuarioLogado());
-		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.remocao" , null, FacesMessage.SEVERITY_INFO);
+		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.remocao" , "msg.prefixo", FacesMessage.SEVERITY_INFO);
 	}
 	
 	@Override
@@ -78,6 +78,15 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 		this.getBusinessClass().ativarInativar(objetoModelo.getId(), ativo, super.getUsuarioLogado());
 		String mensagem = ativo? "msg.sucesso.ativacao":"msg.sucesso.inativacao";
 		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " " + mensagem , null, FacesMessage.SEVERITY_INFO);
+	}
+	
+	public String excultarAcao() throws BusinessException{
+		if(acao == CrudAcaoEnum.CADASTRAR) {
+			return cadastrar();
+		} else if (acao == CrudAcaoEnum.ALTERAR) {
+			return alterar();
+		}
+		return null;
 	}
 	
 	public T getObjetoModelo() {
@@ -89,6 +98,9 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 	}
 
 	public CrudAcaoEnum getAcao() {
+		if(acao == null && super.getResquest().getParameter("formIncluirAlterar:acao") != null) {
+			acao = CrudAcaoEnum.valueOf(super.getResquest().getParameter("formIncluirAlterar:acao"));
+		}
 		return acao;
 	}
 
@@ -119,19 +131,19 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 	}
 	
 	public boolean isCadastro() {
-		return acao == CrudAcaoEnum.CADASTRAR;
+		return this.getAcao() == CrudAcaoEnum.CADASTRAR;
 	}
 	
 	public boolean isAlteracao() {
-		return acao == CrudAcaoEnum.ALTERAR;
+		return this.getAcao() == CrudAcaoEnum.ALTERAR;
 	}
 	
 	public boolean isVisualizacao() {
-		return acao == CrudAcaoEnum.VISUALIZAR;
+		return this.getAcao() == CrudAcaoEnum.VISUALIZAR;
 	}
 	
 	public boolean isPesquisa() {
-		return acao == CrudAcaoEnum.PESQUISAR;
+		return this.getAcao() == CrudAcaoEnum.PESQUISAR;
 	}
 	
 }

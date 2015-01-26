@@ -9,27 +9,23 @@
 <ui:composition template="/template/templatePrincipal.xhtml">
 
 <ui:define name="breadCrumb">
-	<p:menuitem value="Início" url="/view/index.html" />
-	<p:menuitem value="Pesquisar Grupo de Permissões" url="/view/index.html" />
-	<p:menuitem value="Visualizar Grupo de Permissões" url="#" />
+	<p:menuitem value="#{msg['view.inicio']}" url="/view/index.html" />
+	<p:menuitem value="#{msg['view.acao.pesquisar']}" url="#" />
+	<p:menuitem value="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}" url="#" />
 </ui:define>
 
 <ui:define name="conteudo">
 	<div id="visualizarGrupoPermissao">
 		<h:form>
-			<p:panel header="Visualizar Novo Grupo de Permissões - Escolhas as permissões que o novo grupo deverá possuir.">
+			<p:panel header="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}">
                 <h:panelGrid columns="1">
 	                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
-	                	<p:outputLabel for="descricaoGrupo" value="Descrição do Grupo: " />
-	                    <p:inputText id="descricaoGrupo" size="40" value="#{grupoPermissaoMB.objetoModelo.descricao}" 
-	                    			 required="true" label="Descrição do Grupo"/>
+	                	<h:outputText for="descricaoGrupo" value="Descrição do Grupo: " styleClass=""/>
+	                    <h:outputText id="descricaoGrupo" size="40" value="#{grupoPermissaoMB.objetoModelo.descricao}" label="Descrição do Grupo"/>
 	                    
 	                    <p:outputLabel for="status" value="Status: " />
-	                    <p:selectOneMenu id="status" value="#{grupoPermissaoMB.objetoModelo.status}" 
-	                     		required="true" style="width:125px" label="Status do Grupo">
-	                     		
-				            <f:selectItems value="#{grupoPermissaoMB.grupoPermissaoStatus}" 
-				            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
+	                    <p:selectOneMenu id="status" value="#{grupoPermissaoMB.objetoModelo.status}" required="true" style="width:125px" label="Status do Grupo">
+				            <f:selectItems value="#{grupoPermissaoMB.grupoPermissaoStatus}" var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
 				        </p:selectOneMenu>
 	                </h:panelGrid>
 	                
@@ -48,9 +44,9 @@
 					    </div>
                 	</ui:repeat>
                 	
-			        <p:commandButton value="Cadastrar" action="#{grupoPermissaoMB.cadastrar}" icon="ui-icon-check"/>
+			        <p:commandButton value="#{msg['view.acao.visualizar']}" action="#{grupoPermissaoMB.cadastrar}" icon="ui-icon-check"/>
                 </h:panelGrid>
-                <h:outputText value="Nota: Campos com (*) tem preenchimento obrigatorio." styleClass="notaRodape"/>
+                <h:outputText value="#{msg['view.nota.obrigatoriedade']}" styleClass="notaRodape"/>
             </p:panel>
 	    </h:form>
 	</div>

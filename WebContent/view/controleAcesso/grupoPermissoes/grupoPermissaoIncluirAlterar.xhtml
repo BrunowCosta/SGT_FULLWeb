@@ -10,12 +10,13 @@
 
 <ui:define name="breadCrumb">
 	<p:menuitem value="#{msg['view.inicio']}" url="/view/index.html" />
-	<p:menuitem value="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}" url="#"/>
+	<p:menuitem value="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}" url="#" />
 </ui:define>
 
 <ui:define name="conteudo">
 	<div id="incluirAlterarGrupoPermissao">
-		<h:form>
+		<h:form id="formIncluirAlterar">
+			<h:inputHidden id="acao" value="#{grupoPermissaoMB.acao}" />
 			<p:panel header="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}">
                 <h:panelGrid columns="1">
 	                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
@@ -47,8 +48,8 @@
 					    </div>
                 	</ui:repeat>
                 	
-			        <p:commandButton value="#{msg['view.acao.cadastrar']}" action="#{grupoPermissaoMB.cadastrar}" icon="ui-icon-check" rendered="#{grupoPermissaoMB.cadastro}"/>
-			        <p:commandButton value="#{msg['view.acao.alterar']}" action="#{grupoPermissaoMB.alterar}" icon="ui-icon-check" rendered="#{grupoPermissaoMB.alteracao}"/>
+                	<h:inputHidden value="#{grupoPermissaoMB.acao}" />
+			        <p:commandButton value="#{msg[grupoPermissaoMB.acao.descricao]}" icon="ui-icon-check" action="#{grupoPermissaoMB.excultarAcao}"/>
                 </h:panelGrid>
                 <h:outputText value="#{msg['view.nota.obrigatoriedade']}" styleClass="notaRodape"/>
             </p:panel>

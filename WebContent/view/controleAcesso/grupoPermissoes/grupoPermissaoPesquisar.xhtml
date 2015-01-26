@@ -26,7 +26,7 @@
 	                    <p:outputLabel for="statusFiltro" value="Status: " />
 	                    <p:selectOneMenu id="statusFiltro" value="#{grupoPermissaoPesquisarMB.objetoPesquisa.status}" 
 	                     		         style="width:125px" label="Status Filtro">
-	                     		
+	                     	<f:selectItem itemLabel="#{msg['view.todos']}" itemValue="" />	
 				            <f:selectItems value="#{grupoPermissaoPesquisarMB.grupoPermissaoStatus}" 
 				            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
 				        </p:selectOneMenu>
@@ -38,13 +38,15 @@
             	<p:separator/>
             	
 	            <p:dataTable id="resultadoPesquisa" var="grupo" value="#{grupoPermissaoPesquisarMB.resultadoPesquisa}" 
-	            			 rowStyleClass="#{grupo.status}" emptyMessage="#{msg['view.pesquisar.semResultado']}">
-				 	<h:inputHidden value="#{grupo.id}" />
-				    <p:column headerText="Descricao" style="width: 79%">
+	            			 rowStyleClass="#{grupo.status}" emptyMessage="#{msg['view.pesquisar.semResultado']}"
+	            			 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	            			 paginator="true" rows="10" >
+	            			 
+				    <p:column headerText="Descricao" style="width: 75%" sortBy="#{grupo.descricao}">
 				        <h:outputText value="#{grupo.descricao}" />
 				    </p:column>
 				    
-				    <p:column headerText="Status" style="width: 9%">
+				    <p:column headerText="Status" style="width: 9%;text-align: center">
 				        <h:outputText value="#{msg[grupo.status.descricao]}" />
 				    </p:column>
 				 

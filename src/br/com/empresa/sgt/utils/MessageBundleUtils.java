@@ -2,6 +2,7 @@ package br.com.empresa.sgt.utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -47,8 +48,7 @@ public class MessageBundleUtils implements Serializable {
 	}
 	
 	public String traduzirMensagemMultipla(String mensagemMultipla) {
-		List<String> mensagens = new ArrayList<String>();
-		mensagens.toArray(mensagemMultipla.split(" "));
+		List<String> mensagens = Arrays.asList(mensagemMultipla.split(" "));
 		
 		if(mensagens.isEmpty()) {
 			return this.getMensagem(mensagemMultipla);
@@ -61,7 +61,7 @@ public class MessageBundleUtils implements Serializable {
 			}
 			
 			try {
-				mensagemTraduzida = this.getMensagem(mensagem);
+				mensagemTraduzida += this.getMensagem(mensagem);
 			} catch(Exception e) {
 				mensagemTraduzida = mensagem;
 			}

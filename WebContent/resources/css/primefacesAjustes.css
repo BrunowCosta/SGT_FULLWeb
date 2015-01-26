@@ -46,3 +46,8 @@
 	border-radius: 0px !important;
 }
 
+.ui-messages-info, .ui-message-info{
+    background-color: #8cd962 !important;
+    border-color: #006100 !important;
+    color: #006100 !important;
+}
