@@ -17,36 +17,37 @@
 <ui:define name="conteudo">
 	<div id="visualizarGrupoPermissao">
 		<h:form>
+			<h:inputHidden id="acao" value="#{grupoPermissaoMB.acao}" />
 			<p:panel header="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}">
                 <h:panelGrid columns="1">
-	                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
-	                	<h:outputText for="descricaoGrupo" value="Descrição do Grupo: " styleClass=""/>
-	                    <h:outputText id="descricaoGrupo" size="40" value="#{grupoPermissaoMB.objetoModelo.descricao}" label="Descrição do Grupo"/>
+	                <h:panelGrid columns="2" cellpadding="3" columnClasses="labelVisualizacao, valorVisualizacao">
+	                	<h:outputText value="Descricao do Grupo: " />
+	                    <h:outputText value="#{grupoPermissaoMB.objetoModelo.descricao}" />
 	                    
-	                    <p:outputLabel for="status" value="Status: " />
-	                    <p:selectOneMenu id="status" value="#{grupoPermissaoMB.objetoModelo.status}" required="true" style="width:125px" label="Status do Grupo">
-				            <f:selectItems value="#{grupoPermissaoMB.grupoPermissaoStatus}" var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
-				        </p:selectOneMenu>
+	                    <h:outputText value="Status: " />
+	                    <h:outputText value="#{msg[grupoPermissaoMB.objetoModelo.status.descricao]} " />
 	                </h:panelGrid>
 	                
 	                <p:separator/>
 	                
-                	<ui:repeat value="#{grupoPermissaoMB.objetoModelo.permissoes}" var="permissao" varStatus="status">
-                		<div class="#{status.odd?'left':'right'}">
-	                		<h:panelGrid columns="2" cellpadding="3" columnClasses="labelPermissao, valorPermissao">
-								<!-- TODO referenciar outputlabel-->
-		                		<p:outputLabel value="#{msg[permissao.tipo.descricao]}: " />
-			                    <p:selectOneRadio id="Permissao" value="#{permissao.valor}" required="true">
-						            <f:selectItems value="#{grupoPermissaoMB.permissaoValores}" 
-				            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
-						        </p:selectOneRadio>
+	                <ui:repeat value="#{grupoPermissaoMB.objetoModelo.permissoes}" var="permissao" varStatus="i">
+                		<div class="#{i.odd?'left':'right'}">
+	                		<h:panelGrid columns="2" cellpadding="3" columnClasses="labelVisualizacao, valorVisualizacao" style="width: 100%">
+								<h:outputText value="#{msg[permissao.tipo.descricao]}: " />
+		                		<h:outputText value="#{msg[permissao.valor.descricao]}" />
 						    </h:panelGrid>
 					    </div>
                 	</ui:repeat>
-                	
-			        <p:commandButton value="#{msg['view.acao.visualizar']}" action="#{grupoPermissaoMB.cadastrar}" icon="ui-icon-check"/>
+	                
                 </h:panelGrid>
-                <h:outputText value="#{msg['view.nota.obrigatoriedade']}" styleClass="notaRodape"/>
+                
+                <div class="ui-acoes-painel">
+                	<div class="centralizado">
+	                 	<p:commandButton value="#{msg['view.acao.alterar']}" 
+	                 				icon="ui-icon-check" action="#{grupoPermissaoMB.goAlterar(grupoPermissaoMB.objetoModelo)}"/>
+	                 	<p:commandButton value="#{msg['view.acao.pesquisar']}" icon="ui-icon-search" action="#{grupoPermissaoPesquisarMB.goPesquisar}"/>
+	                </div>
+                </div>
             </p:panel>
 	    </h:form>
 	</div>

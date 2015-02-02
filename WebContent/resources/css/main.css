@@ -48,13 +48,14 @@ html {
 
 #envelope .conteudo {
 	min-height: 100%;
-	width: 82%;
+	width: 80%;
 	float:right;
 	margin:auto;
 }
 
 #envelope .menuLateral {
 	min-height: 100%;
+	width: 19%;
 	float: left;
 }
 
@@ -124,3 +125,26 @@ footer #rodape {
 	text-align: center;
 }
 
+.label {
+	text-align: right;
+}
+
+.labelVisualizacao {
+	text-align: right;
+	font-style: italic;
+}
+
+.valorVisualizacao {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.ui-acoes-painel {
+	background-color: #e6e6e6;
+    margin: 10px 0 0;
+    padding: 4px;
+}
+
+.botoesAcoes .centralizado {
+	margin: auto;
+}

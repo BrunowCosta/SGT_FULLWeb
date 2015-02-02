@@ -6,9 +6,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
-import br.com.empresa.sgt.enumeration.ErroNegocioEnum;
+import br.com.empresa.sgt.enumeration.MensagemEnum;
 import br.com.empresa.sgt.exception.BusinessException;
-import br.com.empresa.sgt.exception.BusinessException.ErroNegocioPrefixoEnum;
 import br.com.empresa.sgt.exception.BusinessException.ErroNegocioServidadeEnum;
 
 public class FacesMessageUtils implements Serializable {
@@ -32,21 +31,18 @@ public class FacesMessageUtils implements Serializable {
 	
 	// Metódos utilizados para exibir um mensagem amigavel na interface.
 	public void addInterfaceMessage(BusinessException e) {
-		String mensagem = messageBundleUtils.traduzirMensagemMultipla(e.getMessage());
-		String prefixo = messageBundleUtils.getMensagem(e.getPrefixo().getDescricao());
-		facesContext.addMessage(null, new FacesMessage(this.getServerity(e.getSeveridade()), prefixo , mensagem));
+		String mensagem = messageBundleUtils.getMensagem(e);
+		facesContext.addMessage(null, new FacesMessage(this.getServerity(e.getSeveridade()), mensagem , null));
 	}
 	
-	public void addInterfaceMessage(String mensagem, String prefixo, Severity severity) {
-		mensagem = messageBundleUtils.traduzirMensagemMultipla(mensagem);
-		prefixo = messageBundleUtils.getMensagem(prefixo);
-		facesContext.addMessage(null, new FacesMessage(severity, prefixo, mensagem));
+	public void addInterfaceMessage(Severity severity, String mensagem, Object...parametros) {
+		mensagem = messageBundleUtils.getMensagem(mensagem, parametros);
+		facesContext.addMessage(null, new FacesMessage(severity, mensagem, null));
 	}
 	
 	public void addGenericErroMessage() {
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-													   messageBundleUtils.getMensagem(ErroNegocioPrefixoEnum.GENERICO.getDescricao()), 
-													   messageBundleUtils.getMensagem(ErroNegocioEnum.ERRO_GENERICO.getDescricao())));
+										messageBundleUtils.getMensagem(MensagemEnum.ERRO_GENERICO.getDescricao()), null));
 	}
 	
 	private Severity getServerity(ErroNegocioServidadeEnum severidade) {
@@ -68,20 +64,4 @@ public class FacesMessageUtils implements Serializable {
 		}
 	}
 
-	public MessageBundleUtils getMessageBundleUtils() {
-		return messageBundleUtils;
-	}
-
-	public void setMessageBundleUtils(MessageBundleUtils messageBundleUtils) {
-		this.messageBundleUtils = messageBundleUtils;
-	}
-
-	public FacesContext getFacesContext() {
-		return facesContext;
-	}
-
-	public void setFacesContext(FacesContext facesContext) {
-		this.facesContext = facesContext;
-	}
-	
 }

@@ -1,4 +1,4 @@
-package br.com.empresa.sgt.controller;
+package br.com.empresa.sgt.controller.grupoPermissao;
 
 import java.util.Arrays;
 import java.util.List;

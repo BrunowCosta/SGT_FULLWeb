@@ -1,22 +1,22 @@
 package br.com.empresa.sgt.controller;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.owasp.esapi.errors.EncryptionException;
 
-import br.com.empresa.sgt.business.remote.UsuarioBusinessRemote;
+import br.com.empresa.sgt.business.remote.AcessoBusinessRemote;
 import br.com.empresa.sgt.controller.arq.AbstractMB;
 import br.com.empresa.sgt.exception.BusinessException;
 import br.com.empresa.sgt.model.acesso.RegistroAcesso;
 import eu.bitwalker.useragentutils.UserAgent;
 
 @Named
-@RequestScoped
-public class AcessoController extends AbstractMB {
+@SessionScoped
+public class AcessoMB extends AbstractMB {
 	
 	/**
 	 * 
@@ -25,13 +25,13 @@ public class AcessoController extends AbstractMB {
 
 	public static final String USUARIO_LOGADO = "usuarioLogado";
 	
-	@EJB private UsuarioBusinessRemote usuarioBusiness;
+	@EJB private AcessoBusinessRemote acessoBusiness;
 	
 	// Campos da tela
 	private String login = "";
 	private String senha = "";
 	
-	public AcessoController() {}
+	public AcessoMB() {}
 	
 	public String logon() throws EncryptionException, BusinessException {
 //		Usuario usuario = usuarioBusiness.autenticar(login, senha, this.criarRegistroAcesso(this.getResquest()));
@@ -40,7 +40,8 @@ public class AcessoController extends AbstractMB {
 		// TODO Ver por que as vezes da pau no firefox
 		// TODO Ver um maneira legal de botar o caminho das telas.
 		// Provavelmente vai ser utilizado no prettyface.
-		return "/view/controleAcesso/usuario/usuarioIncluir.html";
+		this.limparCampos();
+		return "/view/controleAcesso/usuario/usuarioIncluir";
 	}
 	
 	private RegistroAcesso criarRegistroAcesso(HttpServletRequest req){
@@ -67,7 +68,12 @@ public class AcessoController extends AbstractMB {
 	
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "pagina_inicio";
+		return "/view/index";
+	}
+	
+	private void limparCampos() {
+		this.login = "";
+		this.senha = "";
 	}
 	
 	public String getLogin() {

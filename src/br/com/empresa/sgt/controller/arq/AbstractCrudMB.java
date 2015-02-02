@@ -3,7 +3,8 @@ package br.com.empresa.sgt.controller.arq;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 
-import br.com.empresa.sgt.enumeration.EnumMapped;
+import br.com.empresa.sgt.enumeration.MappedEnum;
+import br.com.empresa.sgt.enumeration.MensagemEnum;
 import br.com.empresa.sgt.exception.BusinessException;
 import br.com.empresa.sgt.model.arq.Modelo;
 
@@ -41,8 +42,9 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 	
 	@Override
 	public String cadastrar() throws BusinessException {
-//		this.getBusinessClass().cadastrar(objetoModelo, super.getUsuarioLogado());
-		super.addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.cadastro" , "msg.prefixo", FacesMessage.SEVERITY_INFO);
+		this.getBusinessClass().cadastrar(objetoModelo, super.getUsuarioLogado());
+		super.addInterfaceMessage(FacesMessage.SEVERITY_INFO, MensagemEnum.SUCESSO_OPERACAO.getDescricao(), 
+								  objetoModelo.getClass().getSimpleName(), CrudAcaoEnum.CADASTRAR.getSucessoOperacao());
 		return this.visualizar(objetoModelo);
 	}
 
@@ -63,21 +65,24 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 	@Override
 	public String alterar() throws BusinessException {
 		this.getBusinessClass().alterar(objetoModelo, super.getUsuarioLogado());
-		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.alteracao" , "msg.prefixo", FacesMessage.SEVERITY_INFO);
+		addInterfaceMessage(FacesMessage.SEVERITY_INFO, MensagemEnum.SUCESSO_OPERACAO.getDescricao(),
+							objetoModelo.getClass().getSimpleName(), CrudAcaoEnum.ALTERAR.getSucessoOperacao());
 		return visualizar(objetoModelo);
 	}
 	
 	@Override
 	public void remover() throws BusinessException {
 		this.getBusinessClass().remover(objetoModelo.getId(), this.getUsuarioLogado());
-		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " msg.sucesso.remocao" , "msg.prefixo", FacesMessage.SEVERITY_INFO);
+		addInterfaceMessage(FacesMessage.SEVERITY_INFO, MensagemEnum.SUCESSO_OPERACAO.getDescricao(), 
+							objetoModelo.getClass().getSimpleName(), CrudAcaoEnum.REMOVER.getSucessoOperacao());
 	}
 	
 	@Override
 	public void ativarInativar(boolean ativo) throws BusinessException {
 		this.getBusinessClass().ativarInativar(objetoModelo.getId(), ativo, super.getUsuarioLogado());
-		String mensagem = ativo? "msg.sucesso.ativacao":"msg.sucesso.inativacao";
-		addInterfaceMessage(objetoModelo.getClass().getSimpleName() + " " + mensagem , null, FacesMessage.SEVERITY_INFO);
+		String mensagem = ativo? CrudAcaoEnum.ATIVAR.getSucessoOperacao():CrudAcaoEnum.INATIVAR.getSucessoOperacao();
+		addInterfaceMessage(FacesMessage.SEVERITY_INFO, MensagemEnum.SUCESSO_OPERACAO.getDescricao(), 
+							objetoModelo.getClass().getSimpleName(), mensagem);
 	}
 	
 	public String excultarAcao() throws BusinessException{
@@ -108,16 +113,21 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 		this.acao = acao;
 	}
 
-	public enum CrudAcaoEnum implements EnumMapped {
-		CADASTRAR("view.acao.cadastrar"), 
-		ALTERAR("view.acao.alterar"), 
-		VISUALIZAR("view.acao.visualizar"),
-		PESQUISAR("view.acao.pesquisar");
+	public enum CrudAcaoEnum implements MappedEnum {
+		CADASTRAR("view.acao.cadastrar", "msg.sucesso.cadastrado"), 
+		ALTERAR("view.acao.alterar", "msg.sucesso.alterado"), 
+		VISUALIZAR("view.acao.visualizar", "msg.sucesso.visualizado"),
+		PESQUISAR("view.acao.pesquisar", "msg.sucesso.encontrado"),
+		ATIVAR("view.acao.ativar", "msg.sucesso.ativado"),
+		INATIVAR("view.acao.inativar", "msg.sucesso.inativado"),
+		REMOVER("view.acao.remover", "msg.sucesso.removido");
 		
 		private String descricao;
+		private String sucessoOperacao;
 		
-		CrudAcaoEnum(String descricao) {
+		CrudAcaoEnum(String descricao, String sucessoOperacao) {
 			this.descricao = descricao;
+			this.sucessoOperacao = sucessoOperacao;
 		}
 
 		public String getDescricao() {
@@ -126,6 +136,14 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 
 		public void setDescricao(String descricao) {
 			this.descricao = descricao;
+		}
+
+		public String getSucessoOperacao() {
+			return sucessoOperacao;
+		}
+
+		public void setSucessoOperacao(String sucessoOperacao) {
+			this.sucessoOperacao = sucessoOperacao;
 		}
 		
 	}

@@ -1,13 +1,15 @@
 package br.com.empresa.sgt.utils;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
+
+import br.com.empresa.sgt.exception.BusinessException;
 
 public class MessageBundleUtils implements Serializable {
 	
@@ -33,41 +35,43 @@ public class MessageBundleUtils implements Serializable {
 		return  ResourceBundle.getBundle(MESSAGEBUDDLE_PATH, locale);
 	}
 	
-	public String getMensagem(String key) {
-		return this.getMensagem(key, null); 
+	public String getMensagem(String key, Object...parametros) {
+		return this.getMensagem(null, key, parametros);
 	}
 	
-	public String getMensagem(String key, Locale locale) {
+	public String getMensagem(BusinessException e) {
+		return this.getMensagem(e.getErro().getDescricao(), e.getParametros());
+	}
+	
+	public String getMensagem(Locale locale, String key, Object...parametros) {
 		String mensagemTraduzida = "";
 		try {
 			mensagemTraduzida = this.getResourceBundle(locale).getString(key);
+			
+			if(parametros != null && parametros.length > 0) {
+				mensagemTraduzida = MessageFormat.format(mensagemTraduzida, this.traduzirParametros(parametros));
+			}
 		} catch(Exception e) {
 			mensagemTraduzida = "???" + key + "???";
 		}
 		return mensagemTraduzida; 
 	}
 	
-	public String traduzirMensagemMultipla(String mensagemMultipla) {
-		List<String> mensagens = Arrays.asList(mensagemMultipla.split(" "));
+	private Object[] traduzirParametros(Object...parametros) {
 		
-		if(mensagens.isEmpty()) {
-			return this.getMensagem(mensagemMultipla);
-		}
+		List<Object> parametrosTraduzidos = new ArrayList<>(parametros.length);
 		
-		String mensagemTraduzida = "";
-		for (String mensagem: mensagens) {
-			if(mensagemTraduzida != "") {
-				mensagemTraduzida += " ";
-			}
-			
-			try {
-				mensagemTraduzida += this.getMensagem(mensagem);
-			} catch(Exception e) {
-				mensagemTraduzida = mensagem;
+		if(parametros != null) {
+			for(Object parametro: parametros) {
+				if(parametro instanceof String) {
+					parametrosTraduzidos.add(this.getMensagem((String) parametro));
+				} else {
+					parametrosTraduzidos.add(parametro);
+				}
 			}
 		}
 		
-		return mensagemTraduzida;
+		return parametrosTraduzidos.toArray();
 	}
 	
 }

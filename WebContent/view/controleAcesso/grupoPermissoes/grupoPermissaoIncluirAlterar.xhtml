@@ -17,7 +17,8 @@
 	<div id="incluirAlterarGrupoPermissao">
 		<h:form id="formIncluirAlterar">
 			<h:inputHidden id="acao" value="#{grupoPermissaoMB.acao}" />
-			<p:panel header="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}">
+			<h:inputHidden id="idObjetoModelo" value="#{grupoPermissaoMB.objetoModelo.id}" />
+			<p:panel header="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}" footer="#{msg['view.nota.obrigatoriedade']}">
                 <h:panelGrid columns="1">
 	                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
 	                	<p:outputLabel for="descricaoGrupo" value="Descrição do Grupo: " />
@@ -37,8 +38,7 @@
 	                
                 	<ui:repeat value="#{grupoPermissaoMB.objetoModelo.permissoes}" var="permissao" varStatus="i">
                 		<div class="#{i.odd?'left':'right'}">
-	                		<h:panelGrid columns="2" cellpadding="3" columnClasses="labelPermissao, valorPermissao">
-								<!-- TODO referenciar outputlabel-->
+	                		<h:panelGrid columns="2" cellpadding="3" columnClasses="label, valor" style="width: 100%">
 		                		<p:outputLabel value="#{msg[permissao.tipo.descricao]}: " />
 			                    <p:selectOneRadio id="Permissao" value="#{permissao.valor}" required="true">
 						            <f:selectItems value="#{grupoPermissaoMB.permissaoValores}" 
@@ -48,10 +48,8 @@
 					    </div>
                 	</ui:repeat>
                 	
-                	<h:inputHidden value="#{grupoPermissaoMB.acao}" />
 			        <p:commandButton value="#{msg[grupoPermissaoMB.acao.descricao]}" icon="ui-icon-check" action="#{grupoPermissaoMB.excultarAcao}"/>
                 </h:panelGrid>
-                <h:outputText value="#{msg['view.nota.obrigatoriedade']}" styleClass="notaRodape"/>
             </p:panel>
 	    </h:form>
 	</div>

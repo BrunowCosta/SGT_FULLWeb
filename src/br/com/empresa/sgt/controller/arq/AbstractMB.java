@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.com.empresa.sgt.controller.AcessoController;
+import br.com.empresa.sgt.controller.AcessoMB;
 import br.com.empresa.sgt.exception.BusinessException;
 import br.com.empresa.sgt.model.acesso.Usuario;
 import br.com.empresa.sgt.utils.FacesMessageUtils;
@@ -25,7 +25,7 @@ public abstract class AbstractMB implements Serializable  {
 	
 	protected Usuario getUsuarioLogado() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		Usuario userLogged = (Usuario) session.getAttribute(AcessoController.USUARIO_LOGADO);
+		Usuario userLogged = (Usuario) session.getAttribute(AcessoMB.USUARIO_LOGADO);
 		return userLogged;
 	}
 	
@@ -45,8 +45,8 @@ public abstract class AbstractMB implements Serializable  {
 		facesMasseUtils.addInterfaceMessage(e);
 	}
 	
-	protected void addInterfaceMessage(String mensagem, String prefixo, Severity severity) {
-		facesMasseUtils.addInterfaceMessage(mensagem, prefixo, severity);
+	protected void addInterfaceMessage(Severity severity, String mensagem, Object...parametros) {
+		facesMasseUtils.addInterfaceMessage(severity, mensagem, parametros);
 	}
 	
 	protected Flash getFlash() {

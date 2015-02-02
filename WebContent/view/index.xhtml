@@ -8,27 +8,31 @@
 
 <ui:composition template="/template/template.xhtml">
 <ui:define name="envelope">
-	<div id="login" style="width: 235px; margin:auto;">
+
+	<p:messages id="mensagemJSF" autoUpdate="true" closable="true" />
+	<p:tooltip />
+	
+	<div id="login">
 		<h:form>
 			<p:fieldset legend="Autenticação">
 		        <h:panelGrid columns="2" cellpadding="5">
-		        	<p:outputLabel for="usuario" value="Usuário: " />
-		        	<p:inputText id="usuario" value="#{acessoController.login}"/>
+		        	<p:outputLabel for="usuario" value="Usuário: " styleClass="label"/>
+		        	<p:inputText id="usuario" value="#{acessoMB.login}"/>
 		        	
-		        	<p:outputLabel for="senha" value="Senha: " />
-					<p:password id="senha" value="#{acessoController.senha}"/>
+		        	<p:outputLabel for="senha" value="Senha: " styleClass="label"/>
+					<p:password id="senha" value="#{acessoMB.senha}"/>
 					
 					<p:column colspan="1">
-						<p:commandButton value="Entrar" label="Entrar" action="#{acessoController.logon}" ajax="false" icon="ui-icon-key"/>
+						<p:commandButton value="Entrar" label="Entrar" action="#{acessoMB.logon}" ajax="false" icon="ui-icon-key"/>
 					</p:column>
 		        </h:panelGrid>
 		    </p:fieldset>
 		    
-		    <p:commandLink outcome="/view/index.html">
-				<small>
-					<h:outputText value="Esqueceu as credenciais!? Clique aqui para recupera-las"/>
-				</small>
-			</p:commandLink>
+		    <small>
+		    	<p:commandLink outcome="/view/index.html">
+		    		<h:outputText value="Esqueceu as credenciais!?Clique aqui para recupera-las"/>
+				</p:commandLink>
+		    </small>
 	    </h:form>
 	</div>
 </ui:define>

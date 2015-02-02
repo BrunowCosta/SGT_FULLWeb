@@ -24,7 +24,7 @@ public class ConfiguracaoInterfaceController extends AbstractMB {
 						"redmond", "rocket", "sam", "smoothness",
 						"south-street", "start", "sunny", "swanky-purse",
 						"trontastic", "twitter bootstrap", "ui-darkness",
-						"ui-lightness", "vader" };
+						"ui-lightness", "vader","clean" };
 	
 	public String[] getTemas() {
 		return(POSSIVEIS_TEMAS);

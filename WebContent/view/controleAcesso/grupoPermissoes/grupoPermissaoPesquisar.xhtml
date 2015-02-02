@@ -16,29 +16,34 @@
 <ui:define name="conteudo">
 	<div id="pesquisarGrupoPermissao">
 		<h:form>
-			<p:panel header="#{msg['view.acao.pesquisar']} #{msg['GrupoPermissao']}">
-            	<h:panelGrid columns="1">
-	                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
-	                	<p:outputLabel for="descricaoGrupoFiltro" value="Descrição: " />
-	                    <p:inputText id="descricaoGrupoFiltro" size="40" 
-	                    			 value="#{grupoPermissaoPesquisarMB.objetoPesquisa.descricao}" label="Descrição Filtro"/>
-	                    
-	                    <p:outputLabel for="statusFiltro" value="Status: " />
-	                    <p:selectOneMenu id="statusFiltro" value="#{grupoPermissaoPesquisarMB.objetoPesquisa.status}" 
-	                     		         style="width:125px" label="Status Filtro">
-	                     	<f:selectItem itemLabel="#{msg['view.todos']}" itemValue="" />	
-				            <f:selectItems value="#{grupoPermissaoPesquisarMB.grupoPermissaoStatus}" 
-				            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
-				        </p:selectOneMenu>
-	                </h:panelGrid>
+			<p:panel id="painelPesquisa" header="#{msg['view.acao.pesquisar']} #{msg['GrupoPermissao']}">
+                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
+                	<p:outputLabel for="descricaoGrupoFiltro" value="Descrição: " />
+                    <p:inputText id="descricaoGrupoFiltro" size="40" 
+                    			 value="#{grupoPermissaoPesquisarMB.objetoPesquisa.descricao}" label="Descrição Filtro"/>
+                    
+                    <p:outputLabel for="statusFiltro" value="Status: " />
+                    <p:selectOneMenu id="statusFiltro" value="#{grupoPermissaoPesquisarMB.objetoPesquisa.status}" 
+                     		         style="width:125px" label="Status Filtro">
+                     	<f:selectItem itemLabel="#{msg['view.todos']}" itemValue="" />	
+			            <f:selectItems value="#{grupoPermissaoPesquisarMB.grupoPermissaoStatus}" 
+			            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
+			        </p:selectOneMenu>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2">
+	                <p:commandButton id="pesquisar" value="#{msg['view.acao.pesquisar']}" icon="ui-icon-check"
+	                				 actionListener="#{grupoPermissaoPesquisarMB.pesquisar}" update="resultadoPesquisa"/>
 	                
-	                <p:commandButton value="#{msg['view.acao.pesquisar']}" actionListener="#{grupoPermissaoPesquisarMB.pesquisar}" update="resultadoPesquisa" icon="ui-icon-check" />
-	      		</h:panelGrid>
+	                <p:blockUI block="painelPesquisa" trigger="pesquisar">
+	               		<p:graphicImage id="loadGif" library="imagens" name="layout/ajax-loader.gif" />
+	               	</p:blockUI>
+      			</h:panelGrid>
 	      		
             	<p:separator/>
             	
 	            <p:dataTable id="resultadoPesquisa" var="grupo" value="#{grupoPermissaoPesquisarMB.resultadoPesquisa}" 
-	            			 rowStyleClass="#{grupo.status}" emptyMessage="#{msg['view.pesquisar.semResultado']}"
+	            			 rowStyleClass="#{grupo.status.rowColor}" emptyMessage="#{msg['view.pesquisar.semResultado']}"
 	            			 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	            			 paginator="true" rows="10" >
 	            			 
@@ -60,6 +65,16 @@
 				    	</p:column>
 				    </p:column>
 				</p:dataTable>
+				
+				<div class="ui-widget-content ui-legenda-box">
+			    	<ui:repeat value="#{grupoPermissaoPesquisarMB.grupoPermissaoStatus}" var="status" varStatus="i">
+			    		<div class="ui-legenda">
+	               			<h:outputText class="ui-legenda-title" value="#{msg[status.descricao]}" />
+	               			<div class="ui-legenda-icon #{status.rowColor}"/>
+	               		</div>
+               		</ui:repeat>
+				</div>
+				
             </p:panel>
 	    </h:form>
 	</div>

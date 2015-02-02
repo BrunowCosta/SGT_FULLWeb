@@ -39,15 +39,20 @@
 .ui-messages-fatal {
 	padding: 6px !important;
 	margin: 5px !important;
+	border: none !important;
 }
 
 /*  Define o arrendodamento das bordas dos componentes visuais do sistema. */
-.ui-corner-all {
+.ui-corner-all, .ui-corner-top {
 	border-radius: 0px !important;
 }
 
-.ui-messages-info, .ui-message-info{
-    background-color: #8cd962 !important;
-    border-color: #006100 !important;
-    color: #006100 !important;
+/* Customiza a aproximação "*" em campos required */
+.ui-outputlabel .ui-outputlabel-rfi {
+	margin-left: 0.0em !important;
+}
+
+/*Diminue a fonte do footer do p:panel onda fica as rotas.*/
+.ui-panel .ui-panel-footer {
+	font-size: 65%;
 }
