@@ -12,6 +12,7 @@ import br.com.empresa.sgt.business.remote.AcessoBusinessRemote;
 import br.com.empresa.sgt.controller.arq.AbstractMB;
 import br.com.empresa.sgt.exception.BusinessException;
 import br.com.empresa.sgt.model.acesso.RegistroAcesso;
+import br.com.empresa.sgt.model.acesso.Usuario;
 import eu.bitwalker.useragentutils.UserAgent;
 
 @Named
@@ -34,10 +35,9 @@ public class AcessoMB extends AbstractMB {
 	public AcessoMB() {}
 	
 	public String logon() throws EncryptionException, BusinessException {
-//		Usuario usuario = usuarioBusiness.autenticar(login, senha, this.criarRegistroAcesso(this.getResquest()));
-//		this.getSession().setAttribute(AcessoController.USUARIO_LOGADO, usuario);
+//		Usuario usuario = acessoBusiness.autenticar(login, senha, this.criarRegistroAcesso(this.getResquest()));
+//		this.getSession().setAttribute(AcessoMB.USUARIO_LOGADO, usuario);
 	
-		// TODO Ver por que as vezes da pau no firefox
 		// TODO Ver um maneira legal de botar o caminho das telas.
 		// Provavelmente vai ser utilizado no prettyface.
 		this.limparCampos();

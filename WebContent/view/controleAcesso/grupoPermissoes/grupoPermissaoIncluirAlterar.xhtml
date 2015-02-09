@@ -4,7 +4,8 @@
 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	  xmlns:f="http://xmlns.jcp.org/jsf/core"
 	  xmlns:h="http://xmlns.jcp.org/jsf/html"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="/template/templatePrincipal.xhtml">
 
@@ -15,41 +16,44 @@
 
 <ui:define name="conteudo">
 	<div id="incluirAlterarGrupoPermissao">
-		<h:form id="formIncluirAlterar">
+		<h:form id="formulario">
 			<h:inputHidden id="acao" value="#{grupoPermissaoMB.acao}" />
 			<h:inputHidden id="idObjetoModelo" value="#{grupoPermissaoMB.objetoModelo.id}" />
+			
 			<p:panel header="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}" footer="#{msg['view.nota.obrigatoriedade']}">
-                <h:panelGrid columns="1">
-	                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, value">
-	                	<p:outputLabel for="descricaoGrupo" value="Descrição do Grupo: " />
-	                    <p:inputText id="descricaoGrupo" size="40" value="#{grupoPermissaoMB.objetoModelo.descricao}" 
-	                    			 required="true" label="Descrição do Grupo"/>
-	                    
-	                    <p:outputLabel for="status" value="Status: " />
-	                    <p:selectOneMenu id="status" value="#{grupoPermissaoMB.objetoModelo.status}" 
-	                     				 required="true" style="width:125px" label="Status do Grupo">
-	                     		
-				            <f:selectItems value="#{grupoPermissaoMB.grupoPermissaoStatus}" 
-				            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
-				        </p:selectOneMenu>
-	                </h:panelGrid>
-	                
-	                <p:separator/>
-	                
-                	<ui:repeat value="#{grupoPermissaoMB.objetoModelo.permissoes}" var="permissao" varStatus="i">
-                		<div class="#{i.odd?'left':'right'}">
-	                		<h:panelGrid columns="2" cellpadding="3" columnClasses="label, valor" style="width: 100%">
+                <h:panelGrid columns="2" cellpadding="3" columnClasses="label, field">
+                	<p:outputLabel for="descricaoGrupo" value="Descrição do Grupo: " />
+                    <p:inputText id="descricaoGrupo" size="40" value="#{grupoPermissaoMB.objetoModelo.descricao}" 
+                    			 required="true" label="Descrição do Grupo"/>
+                    
+                    <p:outputLabel for="status" value="Status: " />
+                    <p:selectOneMenu id="status" value="#{grupoPermissaoMB.objetoModelo.status}" 
+                     				 required="true" style="width:125px" label="Status do Grupo">
+                     		
+			            <f:selectItems value="#{grupoPermissaoMB.grupoPermissaoStatus}" 
+			            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
+			        </p:selectOneMenu>
+                </h:panelGrid>
+                
+                <hr class="ui-divisor"/>
+                
+                <div class="permissoes">
+	               	<ui:repeat id="permissoes" value="#{grupoPermissaoMB.objetoModelo.permissoes}" var="permissao" varStatus="i">
+	               		<div class="#{i.odd?'left':'right'}">
+	                		<h:panelGrid columns="2" cellpadding="3" columnClasses="label, field">
 		                		<p:outputLabel value="#{msg[permissao.tipo.descricao]}: " />
-			                    <p:selectOneRadio id="Permissao" value="#{permissao.valor}" required="true">
+			                    <p:selectOneRadio id="permissao" value="#{permissao.valor}" required="true">
 						            <f:selectItems value="#{grupoPermissaoMB.permissaoValores}" 
 				            			   var="item" itemLabel="#{msg[item.descricao]}" itemValue="#{item}" />
 						        </p:selectOneRadio>
 						    </h:panelGrid>
 					    </div>
-                	</ui:repeat>
-                	
-			        <p:commandButton value="#{msg[grupoPermissaoMB.acao.descricao]}" icon="ui-icon-check" action="#{grupoPermissaoMB.excultarAcao}"/>
-                </h:panelGrid>
+	               	</ui:repeat>
+	            </div>
+                
+               	<div class="ui-acoes-painel">
+		        	<p:commandButton value="#{msg[grupoPermissaoMB.acao.descricao]}" icon="ui-icon-check" action="#{grupoPermissaoMB.excultarAcao}"/>
+		        </div>
             </p:panel>
 	    </h:form>
 	</div>

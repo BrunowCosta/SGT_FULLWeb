@@ -15,11 +15,11 @@
 	<div id="login">
 		<h:form>
 			<p:fieldset legend="Autenticação">
-		        <h:panelGrid columns="2" cellpadding="5">
-		        	<p:outputLabel for="usuario" value="Usuário: " styleClass="label"/>
+		        <h:panelGrid columns="2" cellpadding="3">
+		        	<p:outputLabel for="usuario" value="Usuário: "/>
 		        	<p:inputText id="usuario" value="#{acessoMB.login}"/>
 		        	
-		        	<p:outputLabel for="senha" value="Senha: " styleClass="label"/>
+		        	<p:outputLabel for="senha" value="Senha: "/>
 					<p:password id="senha" value="#{acessoMB.senha}"/>
 					
 					<p:column colspan="1">
@@ -28,11 +28,9 @@
 		        </h:panelGrid>
 		    </p:fieldset>
 		    
-		    <small>
-		    	<p:commandLink outcome="/view/index.html">
-		    		<h:outputText value="Esqueceu as credenciais!?Clique aqui para recupera-las"/>
-				</p:commandLink>
-		    </small>
+	    	<p:commandLink outcome="/view/index.html">
+	    		<h:outputText styleClass="smallFont" value="Esqueceu as credenciais!?Clique aqui para recupera-las"/>
+			</p:commandLink>
 	    </h:form>
 	</div>
 </ui:define>

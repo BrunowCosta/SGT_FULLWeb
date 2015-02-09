@@ -18,35 +18,33 @@
 	<div id="visualizarGrupoPermissao">
 		<h:form>
 			<h:inputHidden id="acao" value="#{grupoPermissaoMB.acao}" />
+			<h:inputHidden id="idObjetoModelo" value="#{grupoPermissaoMB.objetoModelo.id}" />
+			
 			<p:panel header="#{msg[grupoPermissaoMB.acao.descricao]} #{msg['GrupoPermissao']}">
-                <h:panelGrid columns="1">
-	                <h:panelGrid columns="2" cellpadding="3" columnClasses="labelVisualizacao, valorVisualizacao">
-	                	<h:outputText value="Descricao do Grupo: " />
-	                    <h:outputText value="#{grupoPermissaoMB.objetoModelo.descricao}" />
-	                    
-	                    <h:outputText value="Status: " />
-	                    <h:outputText value="#{msg[grupoPermissaoMB.objetoModelo.status.descricao]} " />
-	                </h:panelGrid>
-	                
-	                <p:separator/>
-	                
+                <h:panelGrid columns="2" cellpadding="3" columnClasses="labelVisualizacao, fieldVisualizacao">
+                	<h:outputText value="Descricao do Grupo: " />
+                    <h:outputText value="#{grupoPermissaoMB.objetoModelo.descricao}" />
+                    
+                    <h:outputText value="Status: " />
+                    <h:outputText value="#{msg[grupoPermissaoMB.objetoModelo.status.descricao]} " />
+                </h:panelGrid>
+                
+	            <hr class="ui-divisor" size="1"/>
+	              
+	            <div class="permissoes">
 	                <ui:repeat value="#{grupoPermissaoMB.objetoModelo.permissoes}" var="permissao" varStatus="i">
-                		<div class="#{i.odd?'left':'right'}">
-	                		<h:panelGrid columns="2" cellpadding="3" columnClasses="labelVisualizacao, valorVisualizacao" style="width: 100%">
+	               		<div class="#{i.odd?'left':'right'}">
+	                		<h:panelGrid columns="2" cellpadding="3" columnClasses="labelVisualizacao, fieldVisualizacao">
 								<h:outputText value="#{msg[permissao.tipo.descricao]}: " />
 		                		<h:outputText value="#{msg[permissao.valor.descricao]}" />
 						    </h:panelGrid>
 					    </div>
-                	</ui:repeat>
-	                
-                </h:panelGrid>
-                
-                <div class="ui-acoes-painel">
-                	<div class="centralizado">
-	                 	<p:commandButton value="#{msg['view.acao.alterar']}" 
-	                 				icon="ui-icon-check" action="#{grupoPermissaoMB.goAlterar(grupoPermissaoMB.objetoModelo)}"/>
-	                 	<p:commandButton value="#{msg['view.acao.pesquisar']}" icon="ui-icon-search" action="#{grupoPermissaoPesquisarMB.goPesquisar}"/>
-	                </div>
+	               	</ui:repeat>
+	            </div> 
+	            
+                <div class="ui-acoes-painel centralizado">
+                 	<p:commandButton value="#{msg['view.acao.alterar']}" icon="ui-icon-pencil" action="#{grupoPermissaoMB.goAlterar(grupoPermissaoMB.objetoModelo.id)}"/>
+                 	<p:commandButton value="#{msg['view.acao.pesquisar']}" icon="ui-icon-search" action="#{grupoPermissaoPesquisarMB.goPesquisar}"/>
                 </div>
             </p:panel>
 	    </h:form>

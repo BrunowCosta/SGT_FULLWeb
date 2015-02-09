@@ -4,10 +4,6 @@
 	font-size: 80% !important;
 }
 
-.ui-breadcrumb .ui-menuitem-link {
-	text-decoration: none;
-}
-
 /* Diminue o tamanho do radio button */
 .ui-radiobutton .ui-radiobutton-box {
     width: 11px !important;
@@ -37,9 +33,19 @@
 .ui-messages-warn, 
 .ui-messages-error, 
 .ui-messages-fatal {
-	padding: 6px !important;
-	margin: 5px !important;
+	margin: 0 0 5px !important;
 	border: none !important;
+}
+
+.ui-messages-info-icon, 
+.ui-messages-warn-icon, 
+.ui-messages-error-icon, 
+.ui-messages-fatal-icon {
+	margin-top: -6px !important;
+}
+
+.ui-messages .ui-messages-close {
+	margin-top: -2px !important;
 }
 
 /*  Define o arrendodamento das bordas dos componentes visuais do sistema. */
@@ -54,5 +60,24 @@
 
 /*Diminue a fonte do footer do p:panel onda fica as rotas.*/
 .ui-panel .ui-panel-footer {
-	font-size: 65%;
+	font-size: 65% !important;
+}
+
+/*Customiza o tamanho do breadcrumb*/
+.ui-breadcrumb {
+    padding: 2px 2px 5px !important;
+    font-size: 55% !important;
+}
+
+.ui-breadcrumb .ui-menuitem-link {
+	text-decoration: none;
+}
+
+.ui-breadcrumb ul li span {
+    margin-top: 1.5px;
+}
+
+/*Customiza as mensagens do sistema*/
+.ui-messages {
+	font-size: 60% !important;
 }

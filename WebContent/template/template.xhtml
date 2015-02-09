@@ -22,14 +22,22 @@
 	
 	<ui:insert name="customJs">
 	</ui:insert>
+	
+	<style>
+	  <ui:fragment rendered="#{!interfaceConfigMB.habDesabSombra}">
+		  #container {
+		  	box-shadow: none !important;
+		  }
+	  </ui:fragment>
+	</style>
 <!-- 	<link jsf:library="font-awesome-4.2.0" jsf:name="/css/font-awesome.css" /> -->
 </head>
 
 <body jsf:id="body">
-<!-- <f:view locale="#{internacionalizacaoController.locale}"> -->
+	
+	<!-- <f:view locale="#{internacionalizacaoController.locale}"> -->
 	<f:view>
 	
-		<ui:debug/>
 		<div id="container">
 			<header>
 				<ui:include src="topo.xhtml" />
@@ -48,12 +56,11 @@
 			</div>
 			
 			<footer>
-				<div id="rodape">
-					<ui:include src="footer.xhtml" />
-				</div>
+				<ui:include src="footer.xhtml" />
 			</footer>
 		</div>
 		
 	</f:view>
+	<ui:debug/>
 </body>
 </html>

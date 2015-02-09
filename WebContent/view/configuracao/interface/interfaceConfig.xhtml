@@ -10,11 +10,6 @@
 
 <ui:define name="customJs">
 	<h:outputScript library="js" name="interfaceConfiguravel.js" />
-	<script language="javascript">
-		$(document).ready(function() {
-		      addOnChangeEvent();
-		});
-	</script>
 </ui:define>
 
 <ui:define name="breadCrumb">
@@ -30,46 +25,46 @@
 				<h:panelGrid columns="1">
 				    <h:panelGrid columns="4" cellpadding="3" columnClasses="label, value" style="width:100%;">
 			        	<p:outputLabel for="nomeAplicacao" value="Nome da Aplicação: " />
-			           	<p:inputText id="nomeAplicacao" value="#{configuracaoInterfaceController.nomeAplicacao}" required="true" />
+			           	<p:inputText id="nomeAplicacao" value="#{interfaceConfigMB.nomeAplicacao}" required="true" />
 			                  
 			            <p:outputLabel for="tema" value="Tema: " />
-		                <p:themeSwitcher id="tema" style="width:165px">
+		                <p:themeSwitcher id="tema" style="width:165px" value="#{interfaceConfigMB.displayTema}">
 				            <f:selectItem itemLabel="Escolha o tema" itemValue="" />
-				            <f:selectItems value="#{configuracaoInterfaceController.temas}"/>
+				            <f:selectItems value="#{interfaceConfigMB.temas}" var="tema" itemLabel="#{tema}" itemValue="#{tema.nome}" />
 				        </p:themeSwitcher>
 				        
 				       	<p:outputLabel for="corPlanoFundo" value="Cor do Plano de fundo: " />
-				        <p:colorPicker id="corPlanoFundo"  value="#{configuracaoInterfaceController.corBackground}" styleClass="corPlanoFundo"/>                   
+				        <p:colorPicker id="corPlanoFundo"  value="#{interfaceConfigMB.corBackground}" styleClass="corPlanoFundo"/>                   
 				       	
 				   		<p:outputLabel for="corConteudo " value="Cor do Conteudo: " />
-				   		<p:colorPicker id="corConteudo" styleClass="corConteudo" value="#{configuracaoInterfaceController.corConteudo}" />  
+				   		<p:colorPicker id="corConteudo" styleClass="corConteudo" value="#{interfaceConfigMB.corConteudo}" />  
 				   		
 			           	<p:outputLabel for="tamanhoFonte" value="Tamanho da Fonte: " />
 			            <h:panelGrid columns="1" style="margin-bottom: 10px">
-					        <h:outputText id="tamanhoFonteLabel" value="#{configuracaoInterfaceController.tamanhoFonte}" />
-					        <h:inputHidden id="tamanhoFonte" value="#{configuracaoInterfaceController.tamanhoFonte}" />
+					        <h:outputText id="tamanhoFonteLabel" value="#{interfaceConfigMB.tamanhoFonte}" />
+					        <h:inputHidden id="tamanhoFonte" value="#{interfaceConfigMB.tamanhoFonte}" />
 					        <p:slider styleClass="tamanhoFonteSlide" for="tamanhoFonte" display="tamanhoFonteLabel" style="width: 200px" displayTemplate="{value}" />
 					    </h:panelGrid>
 					   
 					    <p:outputLabel for="arredComponentLabel" value="Arredondamento dos Componentes: " />
 			             <h:panelGrid columns="1" style="margin-bottom: 10px">
-					        <h:outputText id="arredComponentLabel" value="#{configuracaoInterfaceController.arredondamentoComponentes}" />
-					        <h:inputHidden id="valorArredondamento" value="#{configuracaoInterfaceController.arredondamentoComponentes}" />
+					        <h:outputText id="arredComponentLabel" value="#{interfaceConfigMB.arredondamentoComponentes}" />
+					        <h:inputHidden id="valorArredondamento" value="#{interfaceConfigMB.arredondamentoComponentes}" />
 					        <p:slider for="valorArredondamento" display="arredComponentLabel" styleClass="" style="width: 200px" displayTemplate="%{value}" />
 					    </h:panelGrid>
 					    
 					    <p:outputLabel for="habDesabSombra" value="Habilita/Desabilita Sombras: " />
-				        <p:inputSwitch id="habDesabSombra" value="#{configuracaoInterfaceController.habDesabSombra}" 
+				        <p:inputSwitch id="habDesabSombra" value="#{interfaceConfigMB.habDesabSombra}" 
 				        			   onchange="habilitaDesabilitaSombra(this)"/>
 	
 					</h:panelGrid>
-					<p:commandButton value="Salvar" icon="ui-icon-check" />
+					<p:commandButton value="Salvar" icon="ui-icon-check" action="#{interfaceConfigMB.salvar}" />
 				</h:panelGrid>
 			</p:panel>
 	    </h:form>
 	</div>
 	
-	<script language="javascript">
+	<script>
 	 	jQuery(document).ready(function() {
 	 		addOnChangeEvent();
 	    });

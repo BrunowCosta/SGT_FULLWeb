@@ -10,13 +10,13 @@ public interface CrudMB<T extends Modelo> {
 	
 	public String cadastrar() throws BusinessException;
 	
-	public String visualizar(T objetoModelo) throws BusinessException;
+	public String visualizar(Integer id) throws BusinessException;
 	
-	public String goAlterar(T objetoModelo);
+	public String goAlterar(Integer id) throws BusinessException;
 	
 	public String alterar() throws BusinessException;
 	
-	public void remover() throws BusinessException;
+	public void remover(Integer id) throws BusinessException;
 	
 	public void ativarInativar(boolean ativo) throws BusinessException;
 	

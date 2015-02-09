@@ -31,16 +31,16 @@
 			        </p:selectOneMenu>
                 </h:panelGrid>
                 
-                <h:panelGrid columns="2">
+                <div class="ui-acoes-painel">
 	                <p:commandButton id="pesquisar" value="#{msg['view.acao.pesquisar']}" icon="ui-icon-check"
 	                				 actionListener="#{grupoPermissaoPesquisarMB.pesquisar}" update="resultadoPesquisa"/>
-	                
+	                				 
 	                <p:blockUI block="painelPesquisa" trigger="pesquisar">
 	               		<p:graphicImage id="loadGif" library="imagens" name="layout/ajax-loader.gif" />
 	               	</p:blockUI>
-      			</h:panelGrid>
-	      		
-            	<p:separator/>
+      			</div>
+	   			
+            	<hr class="ui-divisor" size="1"/>
             	
 	            <p:dataTable id="resultadoPesquisa" var="grupo" value="#{grupoPermissaoPesquisarMB.resultadoPesquisa}" 
 	            			 rowStyleClass="#{grupo.status.rowColor}" emptyMessage="#{msg['view.pesquisar.semResultado']}"
@@ -57,11 +57,11 @@
 				 
 				    <p:column headerText="Ações" styleClass="acaoColumn">
 				    	<p:column>
-				    		<p:commandButton action="#{grupoPermissaoMB.visualizar(grupo)}" icon="ui-icon-search" title="#{msg['view.acao.visualizar']}"/>
+				    		<p:commandButton action="#{grupoPermissaoMB.visualizar(grupo.id)}" icon="ui-icon-search" title="#{msg['view.acao.visualizar']}"/>
 				    	</p:column>
 				    	
 				    	<p:column>
-				    		<p:commandButton action="#{grupoPermissaoMB.goAlterar(grupo)}" icon="ui-icon-pencil" title="#{msg['view.acao.alterar']}"/>
+				    		<p:commandButton action="#{grupoPermissaoMB.goAlterar(grupo.id)}" icon="ui-icon-pencil" title="#{msg['view.acao.alterar']}"/>
 				    	</p:column>
 				    </p:column>
 				</p:dataTable>

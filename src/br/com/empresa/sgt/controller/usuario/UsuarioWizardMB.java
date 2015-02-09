@@ -1,5 +1,7 @@
 package br.com.empresa.sgt.controller.usuario;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
@@ -7,16 +9,19 @@ import javax.inject.Named;
 
 import org.primefaces.event.FlowEvent;
 
+import br.com.empresa.sgt.business.remote.GrupoPermissaoBusinessRemote;
 import br.com.empresa.sgt.business.remote.UsuarioBusinessRemote;
 import br.com.empresa.sgt.controller.arq.AbstractCrudMB.CrudAcaoEnum;
 import br.com.empresa.sgt.controller.arq.AbstractMB;
 import br.com.empresa.sgt.enumeration.MensagemEnum;
 import br.com.empresa.sgt.exception.BusinessException;
+import br.com.empresa.sgt.model.acesso.GrupoPermissao;
+import br.com.empresa.sgt.model.acesso.GrupoPermissao.GrupoPermissaoStatusEnum;
 import br.com.empresa.sgt.model.acesso.Usuario;
 
 @Named
 @ViewScoped
-public class UsuarioCadastrarWizardMB extends AbstractMB {
+public class UsuarioWizardMB extends AbstractMB {
 	
 	/**
 	 * 
@@ -28,17 +33,23 @@ public class UsuarioCadastrarWizardMB extends AbstractMB {
 
 	@EJB private UsuarioBusinessRemote usuarioBusiness;
 	
-	//TODO INJETAR
-	Usuario novoUsuario = new Usuario();
+	@EJB private GrupoPermissaoBusinessRemote grupoBussiness;
 	
-	public UsuarioCadastrarWizardMB() {}
+	private List<GrupoPermissao> gruposPermissoes;
+	
+	private String confirmacaoSenha;
+	
+	//TODO INJETAR
+	Usuario usuario = new Usuario();
+	
+	public UsuarioWizardMB() {}
 	
 	public String cadastrar() throws BusinessException {
-		usuarioBusiness.cadastrar(novoUsuario, super.getUsuarioLogado());
+		usuarioBusiness.cadastrar(usuario, super.getUsuarioLogado());
 		super.addInterfaceMessage(FacesMessage.SEVERITY_INFO, MensagemEnum.SUCESSO_OPERACAO.getDescricao(), 
 								  Usuario.class.getSimpleName(), CrudAcaoEnum.CADASTRAR.getSucessoOperacao());
 		
-		super.getFlash().put("usuario", novoUsuario);
+		super.getFlash().put("usuario", usuario);
 //		super.getFlash().put("mensagemCadastro", )
 		return visualizarUrl + AbstractMB.REDIRECT_SUFIXO;
 	}
@@ -52,12 +63,36 @@ public class UsuarioCadastrarWizardMB extends AbstractMB {
 		return cadastrarUrl;
 	}
 
-	public Usuario getNovoUsuario() {
-		return novoUsuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setNovoUsuario(Usuario novoUsuario) {
-		this.novoUsuario = novoUsuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<GrupoPermissao> getGruposPermissoes() throws BusinessException {
+		
+		// Lazy
+		if(gruposPermissoes == null) {
+			GrupoPermissao example = new GrupoPermissao();
+			example.setStatus(GrupoPermissaoStatusEnum.ATIVO);
+			gruposPermissoes = grupoBussiness.pesquisar(example);
+		}
+		
+		return gruposPermissoes;
+	}
+
+	public void setGruposPermissoes(List<GrupoPermissao> gruposPermissoes) {
+		this.gruposPermissoes = gruposPermissoes;
+	}
+
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
 	}
 	
 }

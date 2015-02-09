@@ -17,6 +17,7 @@ import br.com.empresa.sgt.model.arq.Modelo;
  * 
  */
 @SuppressWarnings("serial")
+//Deve ser usado por RequestScoped
 public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implements CrudMB<T> {
 	
 	protected static String cadastrarUrl;
@@ -28,36 +29,38 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 	protected CrudAcaoEnum acao;
 	
 	public AbstractCrudMB() {
+		
+		//Evita que ao clicar em cadastrar ou acessa a view pela url a pagina fique sem acao.
 		if (super.getFlash().containsKey("acao")) {
 			acao = (CrudAcaoEnum) super.getFlash().get("acao");
+		} else if (acao == null) {
+			acao = CrudAcaoEnum.CADASTRAR;
 		}
 	}
 	
 	@Override
 	public String goCadastrar() {
-		super.getFlash().put("acao", CrudAcaoEnum.CADASTRAR);
-		super.getFlash().setKeepMessages(true);
 		return cadastrarUrl + AbstractMB.REDIRECT_SUFIXO;
 	}
 	
 	@Override
 	public String cadastrar() throws BusinessException {
-		this.getBusinessClass().cadastrar(objetoModelo, super.getUsuarioLogado());
+		objetoModelo = this.getBusinessClass().cadastrar(objetoModelo, super.getUsuarioLogado());
 		super.addInterfaceMessage(FacesMessage.SEVERITY_INFO, MensagemEnum.SUCESSO_OPERACAO.getDescricao(), 
 								  objetoModelo.getClass().getSimpleName(), CrudAcaoEnum.CADASTRAR.getSucessoOperacao());
-		return this.visualizar(objetoModelo);
+		return visualizarUrl;
 	}
 
 	@Override
-	public String visualizar(T objetoModelo) throws BusinessException {
-		this.objetoModelo = objetoModelo;
+	public String visualizar(Integer id) throws BusinessException {
+		this.objetoModelo = this.encontrarObjeto(id);
 		acao = CrudAcaoEnum.VISUALIZAR;
 		return visualizarUrl;
 	}
 	
 	@Override
-	public String goAlterar(T objetoModelo) {
-		this.objetoModelo = objetoModelo;
+	public String goAlterar(Integer id) throws BusinessException {
+		this.objetoModelo = this.encontrarObjeto(id);
 		acao = CrudAcaoEnum.ALTERAR;
 		return alterarUrl;
 	}
@@ -67,12 +70,12 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 		this.getBusinessClass().alterar(objetoModelo, super.getUsuarioLogado());
 		addInterfaceMessage(FacesMessage.SEVERITY_INFO, MensagemEnum.SUCESSO_OPERACAO.getDescricao(),
 							objetoModelo.getClass().getSimpleName(), CrudAcaoEnum.ALTERAR.getSucessoOperacao());
-		return visualizar(objetoModelo);
+		return visualizar(objetoModelo.getId());
 	}
 	
 	@Override
-	public void remover() throws BusinessException {
-		this.getBusinessClass().remover(objetoModelo.getId(), this.getUsuarioLogado());
+	public void remover(Integer id) throws BusinessException {
+		this.getBusinessClass().remover(id, this.getUsuarioLogado());
 		addInterfaceMessage(FacesMessage.SEVERITY_INFO, MensagemEnum.SUCESSO_OPERACAO.getDescricao(), 
 							objetoModelo.getClass().getSimpleName(), CrudAcaoEnum.REMOVER.getSucessoOperacao());
 	}
@@ -94,6 +97,10 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 		return null;
 	}
 	
+	protected T encontrarObjeto(Integer id) throws BusinessException {
+		return (T) this.getBusinessClass().encontrar(id);
+	}
+	
 	public T getObjetoModelo() {
 		return objetoModelo;
 	}
@@ -103,6 +110,7 @@ public abstract class AbstractCrudMB<T extends Modelo> extends AbstractMB implem
 	}
 
 	public CrudAcaoEnum getAcao() {
+		//TODO Ver pra que botei isso
 		if(acao == null && super.getResquest().getParameter("formIncluirAlterar:acao") != null) {
 			acao = CrudAcaoEnum.valueOf(super.getResquest().getParameter("formIncluirAlterar:acao"));
 		}
